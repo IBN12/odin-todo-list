@@ -1,0 +1,113 @@
+/* body - The main body for the browser application. */
+body{
+    padding: 0;
+    margin: 0;
+    /* background-image: url(../images/TODO-List-Background-1.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 100%;
+    background-color: #d97706; */
+}
+
+/* * - All the elements on the page. */
+* {
+    box-sizing: border-box;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Content| */
+#content{
+    background-image: url(../images/TODO-List-Background-1.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-position: center;
+    background-size: 60% 100%;
+    background-color: #d97706;
+    border: 3px solid red;
+}
+/* This class will make the entire content area blurry when the user wants to add a new todo list item/data. */
+.change-view{ 
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Main Window| */
+/* The main window for the entire todo list application. Will have a title, navigation, and display section. */
+#main-window{
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    grid-template-rows: auto;
+
+    margin: 250px auto;
+    border: 2px solid red;
+    width: 900px;
+    padding: 10px;
+}
+#main-window > div{
+    border: 2px solid orange;
+    background-color: lightblue;
+}
+
+#main-window > div:nth-child(1){
+    grid-column: 1 / 4;
+}
+#main-window > div:nth-child(3){
+    grid-column: 2 / 4;
+}
+
+/* Main Window | Home Display */
+.home-display{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+
+/* Main Window | Project Display */
+.project-display{
+    background-color: green;
+    width: 100%;
+    height: 100%;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Add Window| */
+.add-window{
+    border: 3px solid blue;
+    padding: 10px;
+}
+
+/* Add Window | Add Window User Navigation */
+.add-window-nav{
+    border: 3px solid green;
+}
+
+/* Add Window | Create TODO UI */
+.add-window-todo-ui{
+    border: 3px solid red;
+}
+
+/* Add Window | Create Project UI */
+.add-window-project-ui{
+    border: 3px solid purple;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* This class will hide any window that user needs for input. */
+.hide-window{
+    display: none;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* Current Module Tab - Lets the user know which module tab they are currently on. */
+.current-module-tab{
+    background-color: lightseagreen;
+}
