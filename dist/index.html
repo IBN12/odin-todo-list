@@ -24,26 +24,37 @@
 
         <div class="add-window">
             <div class="add-window-nav">
-                <div>Create TODO</div>
-                <div>Create Project</div>
+                <div><button>Create TODO</button></div>
+                <div><button>Create Project</button></div>
             </div>
 
             <div class="add-window-todo-ui">
-                <form>
-                    <div><input type="text" name="todo-name" placeholder="Todo Title" required /></div>
-                    <div><input type="text" name="todo-description" placeholder="Todo Description" required /></div>
-                    <div><input type="date" name="todo-due-date" placeholder="Todo Due Date" required /></div>
+                <form class="add-window-todo-form">
+                    <div><input type="text" id="todo-name" name="todo-name" placeholder="Todo Title" required /></div>
+                    <div><input type="text" id="todo-description" name="todo-description" placeholder="Todo Description" required /></div>
+                    <div><input type="date" id="todo-due-date" name="todo-due-date" placeholder="Todo Due Date" required /></div>
                     <div>
                         <label for="todo-priorty">Priorty</label>
-                        <select name="todo-priorty" id="todo-priorty">
+                        <select name="todo-priorty" id="todo-priority">
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                     </div>
+                    <div><button type="submit" id="todo-submit">Create TODO</button></div>
                 </form>
             </div>
-            <div class="add-window-project-ui">Project Items</div>
+
+            <div class="add-window-project-ui">
+                <form class="add-window-project-form">
+                    <div>
+                        <input type="text" id="project" name="project" placeholder="Project Name" required/>
+                    </div>
+                    <div>
+                        <button type="submit" id="project-submit">Create Project</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <script src="main.js"></script>

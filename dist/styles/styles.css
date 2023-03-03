@@ -42,16 +42,17 @@ body{
 #main-window{
     display: grid;
     grid-template-columns:repeat(3, 1fr);
-    grid-template-rows: auto;
+    grid-template-rows: 1fr 400px;
 
-    margin: 250px auto;
+    margin: 200px auto;
     border: 2px solid red;
-    width: 900px;
+    width: 1200px;
     padding: 10px;
 }
 #main-window > div{
     border: 2px solid orange;
     background-color: lightblue;
+    padding: 5px;
 }
 
 #main-window > div:nth-child(1){
@@ -66,6 +67,7 @@ body{
     background-color: red;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
 }
 
 /* Main Window | Project Display */
@@ -73,16 +75,23 @@ body{
     background-color: green;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
 }
 
 /**************************************************************************************************************************************************/
 /**************************************************************************************************************************************************/
 /* |Add Window| */
 .add-window{
+    display: grid;
+    grid-template-columns: 250px repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 8px;
+
     border: 3px solid blue;
     padding: 10px;
+    margin: 0 auto;
+    width: 800px;
 }
-
 /* Add Window | Add Window User Navigation */
 .add-window-nav{
     border: 3px solid green;
@@ -90,12 +99,36 @@ body{
 
 /* Add Window | Create TODO UI */
 .add-window-todo-ui{
+    grid-column: 2 / 4;
+
     border: 3px solid red;
+    height: 200px;
 }
 
 /* Add Window | Create Project UI */
 .add-window-project-ui{
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    
     border: 3px solid purple;
+    height: 200px;
+}
+.add-window-project-form{
+    margin: 50px auto;
+    border: 1px solid aqua;
+    text-align: center;
+}
+.add-window-project-form > div{
+    border: 1px solid coral;
+    padding: 10px;
+}
+
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Todo List| */
+.todo-list{
+    border: 2px solid darkblue;
 }
 
 /**************************************************************************************************************************************************/
@@ -110,4 +143,42 @@ body{
 /* Current Module Tab - Lets the user know which module tab they are currently on. */
 .current-module-tab{
     background-color: lightseagreen;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Todo List Container| */
+.todo-list-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 15px;
+
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    
+}
+.todo-list-container > div{
+    border: 1px solid purple;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Project Containers| */
+.project-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 15px;
+
+    padding: 10px; 
+    font-weight: bold;
+    color: white;
+}
+.project-container > div{
+    border: 1px solid purple;
+}
+.project-container > button{
+    cursor: pointer;
 }
