@@ -9,6 +9,7 @@
     </head>
 
     <body>
+        <!--Main Window Content-->
         <div id="content">
             <div id="main-window">
                 <div class="main-window-title"><h1>TODO List</h1></div>
@@ -18,10 +19,17 @@
                     <div><button>Add</button></div>
                 </div>
                 <div class="main-window-display">
+                    <div class="home-display">
+                        <div class="todo-list-container"></div>
+                    </div>
+                    <div class="project-display">
+                        <div class="project-container"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!--Add window for home todos and projects in the main window-->
         <div class="add-window">
             <div class="add-window-nav">
                 <div><button>Create TODO</button></div>
@@ -56,6 +64,12 @@
                 </form>
             </div>
         </div>
+
+        <!--Project Todos Window-->
+        <div class="project-todos-window"></div>
+
+        <!--Detail Todos Window (Todo Description | Todo Due Date)-->
+        <div class="detail-todos-window"></div>
 
         <script src="main.js"></script>
     </body>

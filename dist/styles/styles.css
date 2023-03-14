@@ -165,7 +165,7 @@ body{
 
 /**************************************************************************************************************************************************/
 /**************************************************************************************************************************************************/
-/* |Project Containers| */
+/* |Project Container| */
 .project-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -177,8 +177,44 @@ body{
     color: white;
 }
 .project-container > div{
-    border: 1px solid purple;
+    border: 3px solid blueviolet; 
 }
 .project-container > button{
     cursor: pointer;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Project Todos Window| */
+.project-todos-window{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+
+    background-color: lightskyblue;
+    border: 2px solid yellowgreen;
+}
+.project-todos-window > div{
+    border: 3px solid chocolate;
+}
+
+#hide-project-todos-window{
+    display: none;
+}
+
+/**************************************************************************************************************************************************/
+/**************************************************************************************************************************************************/
+/* |Detail Todos Window| */
+.detail-todos-window{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    background-color: lightsalmon;
+    border: 2px solid green;
+}
+
+#hide-detail-todos-window{
+    display: none;
 }

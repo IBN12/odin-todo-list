@@ -8,6 +8,7 @@ import parse from "date-fns/parse";
 import compareAsc from "date-fns/compareAsc";
 import {populateStorage}  from "./local-storage";
 import { DisplayTodoList } from "./DOM-Contnet";
+import { CurrentProjectModule } from "./DOM-Contnet";
 
 // CreateTodo Factory Function: Contains all the data from the form controls for each todo.
 export const CreateTodo = () => {
@@ -19,12 +20,30 @@ export const CreateTodo = () => {
     return {todoName, todoDescription, todoDueDate, todoPriority};
 }
 
+export const TodoStation = (() => {
+
+})();
+
 // SumbitTodo(): Will submit the todo data.
 export function SubmitTodo(e, todoList){
     e.preventDefault();
     const addWindow = document.querySelector('.add-window');
     const todoForm = document.querySelector('.add-window-todo-ui > form');
+
     console.log("The todo was submitted..."); // Testing
+    var currentProject = CurrentProjectModule.getCurrentProject();
+    console.log(`The Current Project: ${currentProject}`); // Testing
+    // Testing: Displaying the keys in the console log
+    for (const key in todoList){
+        console.log(`The key: ${key}`);
+    }
+
+    if (document.querySelector('.main-window-nav > div:nth-child(1) button').classList.contains('current-module-tab'))
+    {
+        var currentProject = "home";
+    }
+    console.log(`The Current project after the test: ${currentProject}`); // Testing
+    console.log("\n"); // Testing
 
     const myTodo = CreateTodo();
     // Testing todoName, todoDescription, due date, and priorty values in the console.log().
@@ -52,7 +71,8 @@ export function SubmitTodo(e, todoList){
         console.log('The due date is ahead...');
         console.log('Commence local storage...');
         // populateStorage();
-        todoList.home.push(myTodo);
+        todoList[currentProject].push(myTodo);
+        // todoList.home.push(myTodo);
         localStorage.setItem('myTodoList', JSON.stringify(todoList));
        
         addWindow.classList.add('hide-window');
@@ -64,15 +84,14 @@ export function SubmitTodo(e, todoList){
         console.log('The due date is behind...');
         console.log('Local storage will not commence...');
         todoForm.reset();
-        // TODO NOTE: Make a window pop up telling the user that the date is not avaiable anymore and 
-        // that they should update the date form control. 
     }
     else if (compareResult === 0)
     {
         console.log('The Dates are the same...');
         console.log('Commence local storage...');
         // populateStorage();
-        todoList.home.push(myTodo);
+        todoList[currentProject].push(myTodo);
+        // todoList.home.push(myTodo);
         localStorage.setItem('myTodoList', JSON.stringify(todoList));
         
         addWindow.classList.add('hide-window');
