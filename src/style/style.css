@@ -1,0 +1,63 @@
+/* body - The main body for the application. */
+body{
+    padding: 0;
+    margin: 0;
+}
+
+/* * - All elements for the application. */
+*{
+    box-sizing: border-box;
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* Mobile Developement */
+@media only screen and (max-width: 1000px){
+    #content{
+        border: 1px solid red;
+        padding: 10px;
+    }
+
+    /* main title */
+    #content > h1{
+        text-align: center;
+    }
+
+    /* Main Screen Section */
+    .main-screen{
+        display: flex;
+        gap: 3px;
+
+        border: 1px solid purple;
+        padding: 5px;
+    }
+    .main-screen > div{
+        border: 1px solid green;
+    }
+
+    .main-screen > div:nth-child(1){ /* Button Section */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-screen > div:nth-child(2){ /* Input Section */
+        flex: 1;
+        text-align: center;
+    }
+    .main-screen > div:nth-child(2) > form{
+        display: flex; 
+        flex-direction: column;
+        gap:10px;
+    }
+    .main-screen > div:nth-child(2) > form > div > label{
+        display: block;
+    }
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > h4{
+        margin: 0;
+    }
+
+    .current-button{
+        background-color: lightcoral;
+    }
+}
