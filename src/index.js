@@ -1,6 +1,8 @@
 import { compareAsc, format } from "date-fns";
 import { InitializeDomContent } from "./modules/Dom-Content";
+import { InitialStorage } from "./utils/InitialStorage";
 import './style/style.css';
+
 /** |Todo List Project|
  * => Assignment:
  * 1. Your 'todos' are going to be objects that you'll want to dynamically create, which means 
@@ -60,61 +62,61 @@ import './style/style.css';
  * and arrays, you can use 'JSON.stringify()'.
  */
 
-console.log('|Practicing with Local Storage|');
-let testOne = 333;
-localStorage.setItem('test', testOne); 
+// console.log('|Practicing with Local Storage|');
+// let testOne = 333;
+// localStorage.setItem('test', testOne); 
 
-let returnOne = Number(localStorage.getItem('test'));
-console.log('Value: ', returnOne);
-console.log('Value Type: ', typeof(returnOne)); 
-console.log('Local Storage Length: ', localStorage.length); 
-console.log('\n');
+// let returnOne = Number(localStorage.getItem('test'));
+// console.log('Value: ', returnOne);
+// console.log('Value Type: ', typeof(returnOne)); 
+// console.log('Local Storage Length: ', localStorage.length); 
+// console.log('\n');
 
-console.log('=> Deleting key from local storage...');
-localStorage.removeItem('test');
-console.log('Local Storage Length: ', localStorage.length);
-console.log('\n'); 
+// console.log('=> Deleting key from local storage...');
+// localStorage.removeItem('test');
+// console.log('Local Storage Length: ', localStorage.length);
+// console.log('\n'); 
 
 
-console.log('=> Adding an object to the local storage...');
-const testObj = {nameOne: 'Isom'};
-localStorage.setItem('testObj', JSON.stringify(testObj));
-console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
-console.log('\n'); 
+// console.log('=> Adding an object to the local storage...');
+// const testObj = {nameOne: 'Isom'};
+// localStorage.setItem('testObj', JSON.stringify(testObj));
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
+// console.log('\n'); 
 
-console.log('=> Adding a property to the local storage object...');
-testObj['nameTwo'] = 'Jordan';
-localStorage.setItem('testObj', JSON.stringify(testObj)); 
-console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj')));
-console.log('\n'); 
+// console.log('=> Adding a property to the local storage object...');
+// testObj['nameTwo'] = 'Jordan';
+// localStorage.setItem('testObj', JSON.stringify(testObj)); 
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj')));
+// console.log('\n'); 
 
-console.log('=> Adding a another property to the local storage object...');
-testObj['nameThree'] = 'Brock';
-localStorage.setItem('testObj', JSON.stringify(testObj));
-console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
-console.log('\n');
+// console.log('=> Adding a another property to the local storage object...');
+// testObj['nameThree'] = 'Brock';
+// localStorage.setItem('testObj', JSON.stringify(testObj));
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
+// console.log('\n');
 
-console.log('=> Adding another object to the local storage...');
-const randomObj = {random: null};
-localStorage.setItem('randomObj', JSON.stringify(randomObj));
-console.log('Object Value: ', JSON.parse(localStorage.getItem('randomObj')));
-console.log('\n'); 
+// console.log('=> Adding another object to the local storage...');
+// const randomObj = {random: null};
+// localStorage.setItem('randomObj', JSON.stringify(randomObj));
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('randomObj')));
+// console.log('\n'); 
 
-console.log('=> Deleting the random object from the local storage...'); 
-localStorage.removeItem('randomObj'); 
-console.log('Object Value: ', JSON.parse(localStorage.getItem('randomObj')));
-console.log('\n'); 
+// console.log('=> Deleting the random object from the local storage...'); 
+// localStorage.removeItem('randomObj'); 
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('randomObj')));
+// console.log('\n'); 
 
-console.log('=> Deleting a property from test object in local storage...');
-delete testObj.nameTwo; 
-localStorage.setItem('testObj', JSON.stringify(testObj));
-console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
-console.log('\n'); 
+// console.log('=> Deleting a property from test object in local storage...');
+// delete testObj.nameTwo; 
+// localStorage.setItem('testObj', JSON.stringify(testObj));
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj'))); 
+// console.log('\n'); 
 
-console.log('=> Deleting test object from the local storage...');
-localStorage.removeItem('testObj');
-console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj')));
-console.log('\n'); 
+// console.log('=> Deleting test object from the local storage...');
+// localStorage.removeItem('testObj');
+// console.log('Object Value: ', JSON.parse(localStorage.getItem('testObj')));
+// console.log('\n'); 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,6 +137,5 @@ console.log('\n');
 console.log('---------------------------------------------------------');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+InitialStorage();
 InitializeDomContent(); 
-

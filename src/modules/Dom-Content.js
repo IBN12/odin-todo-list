@@ -1,4 +1,8 @@
 import { InputTodo } from "./TodoContent";
+import { InputProject } from "./ProjectContent";
+import { InputNotes } from "./NoteContent";
+
+import { ViewTodos } from "./DisplayTodos";
 
 // InitializeDomContent(): Initalizing all dom dontent for the application. 
 export function InitializeDomContent(){
@@ -9,6 +13,8 @@ export function InitializeDomContent(){
     ButtonSection();
 
     InputSection();
+
+    DisplayProjects();
 }
 
 // MainTitle(): The main title for the application.
@@ -41,6 +47,12 @@ function ButtonSection(){
     TodoButton();
 
     ProjectButton(); 
+
+    NotesButton();
+
+    ViewTodosButton();
+    
+    ViewNotesButton(); 
 }
 
 // InputSection(): The main input section for the todo list.
@@ -64,10 +76,56 @@ function TodoButton(){
     todoButton.addEventListener('click', InputTodo);
 }
 
+// ProjectButton(): The project button.
 function ProjectButton(){
     const projectButton = document.createElement('button');
     projectButton.textContent = 'New Project';
 
     const buttonSection = document.querySelector('.main-screen > div:nth-child(1)'); 
     buttonSection.appendChild(projectButton);
+
+    projectButton.addEventListener('click', InputProject); 
 }
+
+// NotesButton(): The notes button. 
+function NotesButton(){
+    const notesButton = document.createElement('button');
+    notesButton.textContent = "New Note";
+
+    const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
+    buttonSection.appendChild(notesButton);
+
+    notesButton.addEventListener('click', InputNotes); 
+}
+
+// ViewTodosButton(): Button will allow the users to view all the current todos.
+function ViewTodosButton(){
+    const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
+
+    const viewTodosButton = document.createElement('button');
+    viewTodosButton.textContent = 'View Todos';
+
+    buttonSection.appendChild(viewTodosButton); 
+
+    viewTodosButton.addEventListener('click', ViewTodos); 
+}
+
+// ViewNotesButton(): Button will allow the user to view all the current notes.
+function ViewNotesButton(){
+    const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
+
+    const viewNotesButton = document.createElement('button');
+    viewNotesButton.textContent = 'View Notes';
+
+    buttonSection.appendChild(viewNotesButton);
+}
+
+// DisplayProjects(): Will display all the current projects.
+function DisplayProjects(){
+    const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
+    
+    const DisplayProjects = document.createElement('div');
+
+    buttonSection.appendChild(DisplayProjects); 
+}
+

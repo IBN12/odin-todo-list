@@ -11,6 +11,20 @@ body{
 
 /****************************************************************************************************************************************************************************/
 /****************************************************************************************************************************************************************************/
+/* priority-choosen */
+.priority-chosen{
+    background-color: lightblue; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* current-button */
+.current-button{
+    background-color: lightcoral;
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
 /* Mobile Developement */
 @media only screen and (max-width: 1000px){
     #content{
@@ -23,13 +37,14 @@ body{
         text-align: center;
     }
 
-    /* Main Screen Section */
+    /* |Main Screen Section| */
     .main-screen{
         display: flex;
         gap: 3px;
 
         border: 1px solid purple;
         padding: 5px;
+        height: 550px;
     }
     .main-screen > div{
         border: 1px solid green;
@@ -39,6 +54,11 @@ body{
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+    .main-screen > div:nth-child(1) > div{ /* Display Projects */
+        border: 1px solid blue;
+        height: 100%;
+        overflow-y: scroll;
     }
 
     .main-screen > div:nth-child(2){ /* Input Section */
@@ -57,7 +77,16 @@ body{
         margin: 0;
     }
 
-    .current-button{
-        background-color: lightcoral;
+    /* |Todo Section| */
+    .todo-section{
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        height: 100%;
+        overflow-y: scroll;
+    }
+    .todo-section > div{ /* todo rows (todo items)*/
+        border: 1px solid orange;
     }
 }

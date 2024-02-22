@@ -1,18 +1,29 @@
+import { compareAsc, format } from "date-fns";
+import { StoreTodos } from "../utils/InitialStorage";
+import { ViewTodos } from "./DisplayTodos";
+
 // InputTodo(): Allows the user to input todo information.
 export function InputTodo(e){
+    ClearInputSection(); 
+    RemovePreviousSelectedButton();
+
     e.target.classList.value = "current-button";
 
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)'); 
-    inputSection.textContent = ""; 
-
-    const todoForm = document.createElement('form');
-    inputSection.appendChild(todoForm);
-
+    TodoForm();
     TodoName(); 
     TodoDescription();
     TodoDueDate(); 
     TodoPriority(); 
     TodoSubmit();
+}
+
+// TodoForm(): Creates the todo form.
+function TodoForm(){
+    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
+    
+    const todoForm = document.createElement('form');
+    
+    inputSection.appendChild(todoForm); 
 }
 
 // TodoName(): The todo name section.
@@ -83,10 +94,13 @@ function TodoPriority(){
     const todoPriority = document.createElement('div');
     const lowPriority = document.createElement('button');
     lowPriority.textContent = 'Low';
+    lowPriority.setAttribute('type', 'button');
     const medPriority = document.createElement('button');
     medPriority.textContent = 'Med';
+    medPriority.setAttribute('type', 'button');
     const highPriority = document.createElement('button'); 
     highPriority.textContent = 'High';
+    highPriority.setAttribute('type', 'button'); 
 
     todoPriority.appendChild(lowPriority); 
     todoPriority.appendChild(medPriority); 
@@ -96,6 +110,43 @@ function TodoPriority(){
     todoFormSectionFour.appendChild(todoPriority); 
 
     todoForm.appendChild(todoFormSectionFour);
+
+    lowPriority.addEventListener('click', LowPriority);
+    medPriority.addEventListener('click', MedPriority);
+    highPriority.addEventListener('click', HighPriority); 
+}
+
+// LowPriority(): Low priority selection.
+function LowPriority(e){
+    const medPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(2)');
+    const highPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(3)');
+    
+    medPriority.classList.remove('priority-chosen');
+    highPriority.classList.remove('priority-chosen');
+
+    e.target.classList.value = 'priority-chosen';
+}
+
+// MedPriority(): Med priority selection. 
+function MedPriority(e){
+    const lowPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(1)');
+    const highPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(3)'); 
+
+    lowPriority.classList.remove('priority-chosen');
+    highPriority.classList.remove('priority-chosen'); 
+
+    e.target.classList.value = 'priority-chosen';
+}
+
+// HighPriority(): High priority selection. 
+function HighPriority(e){
+    const lowPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(1)');
+    const medPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(2)');
+
+    lowPriority.classList.remove('priority-chosen');
+    medPriority.classList.remove('priority-chosen'); 
+
+    e.target.classList.value = 'priority-chosen'; 
 }
 
 // TodoSubmit(): The todo submit section.
@@ -110,4 +161,87 @@ function TodoSubmit(){
     todoFormSectionFive.appendChild(todoSubmit); 
 
     todoForm.appendChild(todoFormSectionFive); 
+
+    todoSubmit.addEventListener('click', SubmitData);
+}
+
+// SubmitData(): Submit the todo data into the initial storage.
+function SubmitData(e){
+    e.preventDefault(); 
+    const todoForm = document.querySelector('.main-screen > div:nth-child(2) > form'); 
+    const todoName = document.getElementById('todo-name');
+    const todoDescription = document.getElementById('todo-description'); 
+    const lowPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(1)');
+    const medPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(2)');
+    const highPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(3)'); 
+    let priority = "";
+
+    const todoDueDate = document.getElementById('todo-due-date');
+    console.log(todoDueDate.value); // Testing
+    const dueDate = new Date(todoDueDate.value); 
+    console.log(dueDate); // Testing 
+    console.log('Date: ', dueDate.getDate() + 1); // Testing
+    console.log('Year: ', dueDate.getFullYear()); // Testing
+    console.log('Month: ', dueDate.getMonth()); // Testing
+    console.log('\n'); // Testing
+
+    const currentDate = new Date();
+    console.log('Current Date: ', currentDate); // Testing
+    console.log('Current Day Date: ', currentDate.getDate()); // Testing
+    console.log('Current Year: ', currentDate.getFullYear()); // Testing
+    console.log('Current Month: ', currentDate.getMonth()); // Testing 
+    console.log('\n');
+
+    // Test if the due date is ahead of the current date. 
+    const result = compareAsc(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1), 
+                   new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())); 
+    console.log('Comparisons Result: ', result); // Testing
+    console.log('\n'); // Testing
+
+    if (lowPriority.classList.contains('priority-chosen'))
+    {
+        priority = "Low";
+    }
+    else if (medPriority.classList.contains('priority-chosen'))
+    {
+        priority = "Med";
+    }
+    else if (highPriority.classList.contains('priority-chosen'))
+    {
+        priority = "High"; 
+    }
+
+    if (todoName.value === "" || priority === "" || todoDescription.value === "" || todoDueDate.value === "")
+    {
+        console.log("There is an empty field, please fill it in."); // Testing
+        return; 
+    }
+
+    if (result === 1)
+    {
+        const reformattedDueDate = format(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1), 'MMM-dd-yyyy');
+
+        StoreTodos(todoName.value, todoDescription.value, reformattedDueDate, priority);
+
+        lowPriority.classList.remove('priority-chosen');
+        medPriority.classList.remove('priority-chosen');
+        highPriority.classList.remove('priority-chosen');
+        todoForm.reset();
+
+        // ViewTodos();
+    }
+}
+
+
+// ClearInputSection(): Clears the input section. 
+function ClearInputSection(){
+    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
+    inputSection.replaceChildren(); 
+}
+
+// RemovePreviousSelectedButton(): Will the previous selected button classlist.
+function RemovePreviousSelectedButton(){
+    const buttons = document.querySelectorAll('.main-screen > div:nth-child(1) > button');
+
+    buttons.forEach((button) => button.classList.remove('current-button'));
 }
