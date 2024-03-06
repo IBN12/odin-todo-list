@@ -25,9 +25,20 @@ body{
 
 /****************************************************************************************************************************************************************************/
 /****************************************************************************************************************************************************************************/
+/* disable-clicker */
+.disable-clicker{
+    pointer-events: none;
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
 /* Mobile Developement */
 @media only screen and (max-width: 1000px){
     #content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         border: 1px solid red;
         padding: 10px;
     }
@@ -55,17 +66,27 @@ body{
         flex-direction: column;
         gap: 10px;
     }
-    .main-screen > div:nth-child(1) > div{ /* Display Projects */
+
+    .main-screen > div:nth-child(1) > div{ /* Display Projects Window */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        
         border: 1px solid blue;
         height: 100%;
         overflow-y: scroll;
     }
+    .main-screen > div:nth-child(1) > div > h4{ /* Display Title (projects) */
+        margin: 0;
+    }
 
     .main-screen > div:nth-child(2){ /* Input Section */
-        flex: 1;
+        /* flex: 1; */
+        width: 200px; /* Size may need to change depending on the amount of content. */
         text-align: center;
     }
-    .main-screen > div:nth-child(2) > form{
+    .main-screen > div:nth-child(2) > form{ /* New Todo Form */
         display: flex; 
         flex-direction: column;
         gap:10px;
@@ -88,5 +109,149 @@ body{
     }
     .todo-section > div{ /* todo rows (todo items)*/
         border: 1px solid orange;
+    }
+
+    /* |Todo Description Window|*/
+    .todo-description-window{
+        display: flex;
+        flex-direction: column; 
+        gap: 3px;
+
+        border: 3px solid black !important;
+        position: absolute;
+        width: 300px;
+        right: 37px;
+        top: 150px;
+        height: 200px;
+    }
+    .todo-description-window > div:nth-child(1){ /* Close Container */
+        display: flex;
+        justify-content: end;
+
+        border: 1px solid purple;
+    }
+    .todo-description-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+    .todo-description-window > div:nth-child(2){ /* Details Container */
+        display: flex;
+        flex-direction: column;
+        gap: 5px; 
+
+        border: 1px solid darkgreen; 
+        padding: 5px;
+    }
+    .todo-description-window > div:nth-child(2) > div{
+        border: 1px solid pink;
+    }
+
+    /* |Edit Todo Window| */
+    .edit-todo-window{
+        border: 1px solid black;
+        position: absolute;
+        width: 300px;
+        height: 350px;
+        top: 150px;
+        right: 37px;
+        text-align: center;
+    }
+    .edit-todo-window > div:nth-child(1){ /* Close Container */
+        display: flex;
+        justify-content: end;
+
+        border: 1px solid blue;
+    }
+    .edit-todo-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+    .edit-todo-window > form{ /* Edit Section (Form)*/
+        padding: 10px;
+    }
+    .edit-todo-window > form > div
+    {
+        border: 1px solid lightblue;
+    }
+    .edit-todo-window > form > div > label{
+        display: block; 
+    }
+
+    /* |Project Section| */
+    .project-section{
+        border: 1px solid orangered;
+        padding: 10px;
+    }
+    .project-section > div:nth-child(1){ /* Add Todo Container */
+        display: flex;
+        justify-content: end;
+
+        border: 1px solid yellow;
+    }
+    .project-section > div:nth-child(1) > img[src]{ /* Add Todo Button */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+
+    /* |Add Todo Window| */
+    .add-todo-window{
+        position: absolute;
+        width: 250px;
+        height: 300px;
+        top: 100px;
+        border: 1px solid lightseagreen;
+    }
+    .add-todo-window > div:nth-child(1){ /* Close Button Container */
+        display: flex;
+        justify-content: end;
+
+        border: 1px solid blue;
+    }
+    .add-todo-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+
+    .add-todo-window > form { /* Add Todo Section (Form) */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .add-todo-window > form > div > label{
+        display: block; 
+        text-align: center;
+    }
+    .add-todo-window > form > div > h4{
+        text-align: center;
+        margin: 0;
+    }
+
+    /* |Project Todos Section| */
+    .project-todos-section{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        border: 1px solid green;
+    }
+    .project-todos-section > div{ /* Project Todos */
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        border: 1px solid gold;
+    }
+    .project-todos-section > div > div:nth-child(2){ /* Project Todo Button Section */
+        display: flex;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
+    .project-todos-section > div > div:nth-child(2) > img[src]{ /* Porject Todo Buttons */
+        width: 40px;
+        height: 40px;
     }
 }

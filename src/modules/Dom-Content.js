@@ -2,7 +2,8 @@ import { InputTodo } from "./TodoContent";
 import { InputProject } from "./ProjectContent";
 import { InputNotes } from "./NoteContent";
 
-import { ViewTodos } from "./DisplayTodos";
+import { ViewTodos } from "./DisplayTodos"; 
+import { ProjectClicked } from "./ProjectContent";
 
 // InitializeDomContent(): Initalizing all dom dontent for the application. 
 export function InitializeDomContent(){
@@ -121,11 +122,25 @@ function ViewNotesButton(){
 }
 
 // DisplayProjects(): Will display all the current projects.
-function DisplayProjects(){
+export function DisplayProjects(){
     const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
     
-    const DisplayProjects = document.createElement('div');
+    const displayProjects = document.createElement('div');
+    const title = document.createElement('h4');
+    title.textContent = "Projects";
+    displayProjects.appendChild(title); 
 
-    buttonSection.appendChild(DisplayProjects); 
+    buttonSection.appendChild(displayProjects); 
+
+    const projects = JSON.parse(localStorage.getItem('projects'));
+
+    projects.forEach((project) => {
+        const projectButton = document.createElement('button');
+        projectButton.textContent = `${project.projectName}`;
+
+        displayProjects.appendChild(projectButton); 
+
+        projectButton.addEventListener('click', ProjectClicked);
+    });
 }
 
