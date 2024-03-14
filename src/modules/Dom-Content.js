@@ -134,13 +134,16 @@ export function DisplayProjects(){
 
     const projects = JSON.parse(localStorage.getItem('projects'));
 
-    projects.forEach((project) => {
-        const projectButton = document.createElement('button');
-        projectButton.textContent = `${project.projectName}`;
-
-        displayProjects.appendChild(projectButton); 
-
-        projectButton.addEventListener('click', ProjectClicked);
-    });
+    if (projects !== null)
+    {
+        projects.forEach((project) => {
+            const projectButton = document.createElement('button');
+            projectButton.textContent = `${project.projectName}`;
+    
+            displayProjects.appendChild(projectButton); 
+    
+            projectButton.addEventListener('click', ProjectClicked);
+        });
+    }
 }
 

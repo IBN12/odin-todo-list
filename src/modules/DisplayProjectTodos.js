@@ -2,7 +2,12 @@ import deleteProjectTodoImage from '../images/delete-outline.svg';
 import detailsProjectTodoImage from '../images/note-outline.svg';
 import editProjectTodoImage from '../images/note-edit-outline.svg'; 
 
+import { projectMatcher } from '../utils/ProjectMatcher';
 import { todoMatcher } from '../utils/TodoMatcher';
+
+import { ProjectTodoDetailsWindow } from './ProjectContent';
+import { ProjectTodoEditWindow } from './ProjectContent';
+import { DeleteStoredTodoProject } from '../utils/InitialStorage';
 
 // DisplayProjectTodos(): Will display all the project todos from each project. 
 export function DisplayProjectTodos(){
@@ -11,7 +16,7 @@ export function DisplayProjectTodos(){
     const projectSection = document.querySelector('.project-section');
 
     projectArray.forEach((project) => {
-        if (project.projectName === todoMatcher.matcher)
+        if (project.projectName === projectMatcher.matcher)
         {
             const projectTodosSection = document.createElement('div');
             projectTodosSection.classList.add('project-todos-section');
@@ -31,12 +36,15 @@ export function DisplayProjectTodos(){
 
                 const detailsImageButton = new Image();
                 detailsImageButton.src = detailsProjectTodoImage;
+                detailsImageButton.addEventListener('click', ProjectTodoDetailsWindow); 
                 
                 const editImageButton = new Image();
                 editImageButton.src = editProjectTodoImage;
+                editImageButton.addEventListener('click', ProjectTodoEditWindow); 
     
                 const deleteImageButton = new Image();
                 deleteImageButton.src = deleteProjectTodoImage;
+                deleteImageButton.addEventListener('click', DeleteStoredTodoProject);
     
                 projectTodoButtons.appendChild(detailsImageButton);
                 projectTodoButtons.appendChild(editImageButton);
