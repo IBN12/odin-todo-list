@@ -22,11 +22,11 @@ export function InputTodo(e){
 
 // TodoForm(): Creates the todo form.
 function TodoForm(){
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)');
     
     const todoForm = document.createElement('form');
     
-    inputSection.appendChild(todoForm); 
+    displayScreen.appendChild(todoForm); 
 }
 
 // TodoName(): The todo name section.
@@ -41,6 +41,7 @@ function TodoName(){
     todoName.setAttribute('type', 'text');
     todoName.setAttribute('id', 'todo-name');
     todoName.setAttribute('name', 'todo-name');
+    todoName.setAttribute('maxLength', '20'); 
 
     todoFormSectionOne.appendChild(todoNameLabel);
     todoFormSectionOne.appendChild(todoName); 
@@ -57,9 +58,13 @@ function TodoDescription(){
     todoDescriptionLabel.textContent = "Description";
     todoDescriptionLabel.setAttribute('for', 'todo-description');
     const todoDescription = document.createElement('textarea');
+    todoDescription.classList.add('disable-resize'); 
     todoDescription.setAttribute('type', 'text');
     todoDescription.setAttribute('id', 'todo-description');
     todoDescription.setAttribute('name', 'todo-description');
+    todoDescription.setAttribute('rows', '10');
+    todoDescription.setAttribute('maxLength', '150'); 
+
 
     todoFormSectionTwo.appendChild(todoDescriptionLabel);
     todoFormSectionTwo.appendChild(todoDescription); 
@@ -171,6 +176,8 @@ function TodoSubmit(){
 // SubmitData(): Submit the todo data into the initial storage.
 function SubmitData(e){
     e.preventDefault(); 
+    const errorContainer = document.createElement('div'); 
+    errorContainer.classList.add('error-container');
     const todoForm = document.querySelector('.main-screen > div:nth-child(2) > form'); 
     const todoName = document.getElementById('todo-name');
     const todoDescription = document.getElementById('todo-description'); 
@@ -178,6 +185,15 @@ function SubmitData(e){
     const medPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(2)');
     const highPriority = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:nth-child(3)'); 
     let priority = "";
+
+    // Test if the error container is inside in the todo form. 
+    if (todoForm.classList.contains('contains-error-container'))
+    {
+        const previousErrorContainer = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(6)'); 
+        console.log(previousErrorContainer); // Testing 
+        todoForm.removeChild(previousErrorContainer); 
+        todoForm.classList.remove('contains-error-container');  
+    }
 
     const todoDueDate = document.getElementById('todo-due-date');
     console.log(todoDueDate.value); // Testing
@@ -216,11 +232,40 @@ function SubmitData(e){
 
     if (todoName.value === "" || priority === "" || todoDescription.value === "" || todoDueDate.value === "")
     {
-        console.log("There is an empty field, please fill it in."); // Testing
+        if (todoName.value === "")
+        {
+            const todoNameError = document.createElement('div');
+            todoNameError.textContent = 'Name field is missing...';
+            errorContainer.appendChild(todoNameError); 
+        }
+        
+        if (todoDescription.value === "")
+        {
+            const todoDescriptionError = document.createElement('div');
+            todoDescriptionError.textContent = "Description field is missing...";
+            errorContainer.appendChild(todoDescriptionError);
+        }
+
+        if (todoDueDate.value === "")
+        {
+            const todoDueDateError = document.createElement('div');
+            todoDueDateError.textContent = "Due date field is missing..."; 
+            errorContainer.appendChild(todoDueDateError); 
+        }
+
+        if (priority === "")
+        {
+            const priorityError = document.createElement('div'); 
+            priorityError.textContent = "Priority field is missing..."; 
+            errorContainer.appendChild(priorityError); 
+        }
+
+        todoForm.appendChild(errorContainer);  
+        todoForm.classList.add('contains-error-container'); 
         return; 
     }
 
-    if (result === 1)
+    if (result === 1 || result === 0) 
     {
         const reformattedDueDate = format(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1), 'MMM-dd-yyyy');
 
@@ -230,8 +275,15 @@ function SubmitData(e){
         medPriority.classList.remove('priority-chosen');
         highPriority.classList.remove('priority-chosen');
         todoForm.reset();
-
-        // ViewTodos();
+    }
+    else if (result === -1)
+    {
+        const dueDateInvalid = document.createElement('div'); 
+        dueDateInvalid.textContent = 'Due date older than current date...'; 
+        errorContainer.appendChild(dueDateInvalid); 
+        todoForm.classList.add('contains-error-container');
+        todoForm.appendChild(errorContainer); 
+        return; 
     }
 }
 
@@ -240,10 +292,11 @@ export function EditTodo(e){
     console.log('Editing Todo...'); // Testing
     console.log(e.target); // Testing
     console.log(e); // Testing
-    todoMatcher.matcher = e.target.childNodes[0].parentNode.parentNode.childNodes[0].innerHTML;
+    todoMatcher.matcher = e.target.parentNode.parentNode.children[0].textContent; 
 
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const editTodoWindow = document.createElement('div');
     editTodoWindow.classList.add('edit-todo-window'); 
 
@@ -258,7 +311,7 @@ export function EditTodo(e){
 
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.forEach((todo) => {
-        if (todo.name === e.target.parentNode.children[0].textContent)
+        if (todo.name === e.target.parentNode.parentNode.children[0].textContent)
         {
             const editFormSectionOne = document.createElement('div');
             const editNameLabel = document.createElement('label');
@@ -269,17 +322,21 @@ export function EditTodo(e){
             editNameInput.setAttribute('id', 'edit-name');
             editNameInput.setAttribute('name', 'edit-name');
             editNameInput.setAttribute('value', `${todo.name}`);
+            editNameInput.setAttribute('maxLength', '20'); 
             editFormSectionOne.appendChild(editNameLabel);
             editFormSectionOne.appendChild(editNameInput); 
 
             const editFormSectionTwo = document.createElement('div');
-            const editDescriptionLabel = document.createElement('div');
+            const editDescriptionLabel = document.createElement('label');
             editDescriptionLabel.setAttribute('for', 'edit-description');
             editDescriptionLabel.textContent = 'Edit Description';
             const editDescriptionInput = document.createElement('textarea');
+            editDescriptionInput.classList.add('disable-resize'); 
             editDescriptionInput.setAttribute('type', 'text');
             editDescriptionInput.setAttribute('id', 'edit-description');
             editDescriptionInput.setAttribute('name', 'edit-description');
+            editDescriptionInput.setAttribute('rows', '10'); 
+            editDescriptionInput.setAttribute('maxLength', '150'); 
             editDescriptionInput.innerHTML = `${todo.description}`;
             editFormSectionTwo.appendChild(editDescriptionLabel);
             editFormSectionTwo.appendChild(editDescriptionInput); 
@@ -362,29 +419,32 @@ export function EditTodo(e){
     });
 
     mainScreen.setAttribute('style', 'filter: blur(10px);');
+    mainTitle.setAttribute('style', 'filter: blur(10px);'); 
     mainScreen.classList.add('disable-clicker');
     DisableButtons();
 
     editTodoWindow.appendChild(editForm); 
     content.appendChild(editTodoWindow); 
 
-    closeButtonImage.addEventListener('click', RemoveEditTodo);
+    closeButtonImage.addEventListener('click', CloseEditTodoWindow);
 }
 
-// RemoveEditTodo(): Will remove the edit todo window. 
-function RemoveEditTodo(e){
+// CloseEditTodoWindow(): Will remove the edit todo window. 
+function CloseEditTodoWindow(e){
     const content = document.getElementById('content');
     const editTodoWindow = document.querySelector('.edit-todo-window');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const closeButtonImage = document.querySelector('.edit-todo-window > div:nth-child(1) > img[src]');
 
     mainScreen.removeAttribute('style'); 
+    mainTitle.removeAttribute('style'); 
     mainScreen.classList.remove('disable-clicker');
     EnableButtons(); 
 
     content.removeChild(editTodoWindow); 
 
-    closeButtonImage.removeEventListener('click', RemoveEditTodo); 
+    closeButtonImage.removeEventListener('click', CloseEditTodoWindow); 
 } 
 
 // EditPriority(): Will allow the user to change the todo priority.
@@ -407,21 +467,53 @@ function SubmitEditedTodo(e){
 
     const content = document.getElementById('content'); 
     const mainScreen = document.querySelector('.main-screen'); 
+    const mainTitle = document.querySelector('.main-title');  
     const editTodoWindow = document.querySelector('.edit-todo-window'); 
+    const editTodoForm = document.querySelector('.edit-todo-window > form'); 
     const editNameInput = document.getElementById('edit-name');
     const editDescriptionInput = document.getElementById('edit-description');
     const editDueDateInput = document.getElementById('edit-due-date');
     const editPriority = document.querySelectorAll('.edit-todo-window > form > div:nth-child(4) > div > button');
+    const errorContainer = document.createElement('div'); 
+    errorContainer.classList.add('error-container'); 
     let currentPriority = "";
     let indexToReplace = 0;
-    console.log(editDueDateInput.value); // Testing 
 
     const todos = JSON.parse(localStorage.getItem('todos'));
     console.log(todos); // Testing
 
+    if (editTodoForm.classList.contains('contains-error-container'))
+    {
+        const previousErrorContainer = document.querySelector('.edit-todo-window > form > div:nth-child(6)'); 
+        editTodoForm.removeChild(previousErrorContainer); 
+        editTodoForm.classList.remove('contains-error-container'); 
+    }
+
     if (editNameInput.value === "" || editDescriptionInput.value === "" || editDueDateInput.value === "")
     {
-        console.log('Please fill all the input fields'); // Testing
+        if (editNameInput.value === "")
+        {
+            const editNameInputError = document.createElement('div'); 
+            editNameInputError.textContent = 'Name field is missing...'; 
+            errorContainer.appendChild(editNameInputError); 
+        }
+
+        if (editDescriptionInput.value === "")
+        {
+            const editDescriptionInputError = document.createElement('div');
+            editDescriptionInputError.textContent = 'Description field is missing...'; 
+            errorContainer.appendChild(editDescriptionInputError); 
+        }
+        
+        if (editDueDateInput.value === "")
+        {
+            const editDueDateInputError = document.createElement('div');
+            editDueDateInputError.textContent = 'Due date field is missing...';
+            errorContainer.appendChild(editDueDateInputError); 
+        }
+
+        editTodoForm.appendChild(errorContainer);
+        editTodoForm.classList.add('contains-error-container');  
         return; 
     }
 
@@ -463,14 +555,19 @@ function SubmitEditedTodo(e){
 
         StoreEditedTodos(editNameInput.value, editDescriptionInput.value, reformattedDueDate, currentPriority, todos, indexToReplace);
         content.removeChild(editTodoWindow);
-        mainScreen.removeAttribute('style');
+        mainTitle.removeAttribute('style'); 
+        mainScreen.removeAttribute('style'); 
+        mainScreen.classList.remove('disable-clicker'); 
+        EnableButtons();
         ViewTodos(e); 
     }
     else if (result === -1)
     {
-        console.log('The due date is behind the current date.'); // Testing
-        console.log('Please update the due date.'); // Testing
-        console.log('\n'); // Testing 
+        const invalidDueDate = document.createElement('div');
+        invalidDueDate.textContent = "Due date is older than the current date..."; 
+        errorContainer.appendChild(invalidDueDate); 
+        editTodoForm.appendChild(errorContainer); 
+        editTodoForm.classList.add('contains-error-container'); 
         return;  
     }
 }
@@ -482,7 +579,7 @@ export function DeleteTodo(e){
 
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.forEach((todo, index) => {
-        if (todo.name === e.target.parentNode.childNodes[0].innerHTML)
+        if (todo.name === e.target.parentNode.parentNode.childNodes[0].innerHTML)
         {
             todos.splice(index, 1);
         }

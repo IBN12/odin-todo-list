@@ -1,6 +1,8 @@
+import { SubmitNoteToLocalStorage } from "../utils/InitialStorage";
+
 // InputNote(): Will allow the user to input notes into the application.
 export function InputNotes(e){
-    ClearInputSection();
+    ClearDisplayScreen(); 
     RemovePreviousSelectedButton(); 
 
     e.target.classList.value = 'current-button'; 
@@ -12,11 +14,11 @@ export function InputNotes(e){
 
 // NoteForm(): Creates the user note form.
 function NoteForm(){
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)');
     
     const noteForm = document.createElement('form');
 
-    inputSection.appendChild(noteForm); 
+    displayScreen.appendChild(noteForm); 
 }
 
 // NoteInput(): Creates the the user input for notes. 
@@ -28,9 +30,12 @@ function NoteInput(){
     noteInputLabel.textContent = 'Enter Notes';
     noteInputLabel.setAttribute('for', 'note-input');
     const noteInput = document.createElement('textarea');
+    noteInput.classList.add('disable-resize'); 
     noteInput.setAttribute('type', 'text');
     noteInput.setAttribute('name', 'note-input');
     noteInput.setAttribute('id', 'note-input'); 
+    noteInput.setAttribute('rows', '10');
+    noteInput.setAttribute('maxLength', '200');
 
     noteFormSectionOne.appendChild(noteInputLabel);
     noteFormSectionOne.appendChild(noteInput);
@@ -41,11 +46,12 @@ function NoteInput(){
 // NoteSubmit(): Creates the submit button. 
 function NoteSubmit(){
     const noteForm = document.querySelector('.main-screen > div:nth-child(2) > form');
-
+    
     const noteFormSectionTwo = document.createElement('div');
     const noteSubmit = document.createElement('button');
     noteSubmit.textContent = 'Submit'; 
     noteSubmit.setAttribute('type', 'submit');
+    noteSubmit.addEventListener('click', SubmitNoteToLocalStorage); 
 
     noteFormSectionTwo.appendChild(noteSubmit);
 
@@ -53,9 +59,9 @@ function NoteSubmit(){
 }
 
 // ClearInputSection(): Clears the input section
-function ClearInputSection(){
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
-    inputSection.replaceChildren(); 
+function ClearDisplayScreen(){
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)');
+    displayScreen.replaceChildren(); 
 }
 
 // RemovePreviousSelectedButton(): Will remove the previous selected button classlist.

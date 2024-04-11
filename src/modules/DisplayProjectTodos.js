@@ -13,7 +13,7 @@ import { DeleteStoredTodoProject } from '../utils/InitialStorage';
 export function DisplayProjectTodos(){
     const projectArray = JSON.parse(localStorage.getItem('projects'));
 
-    const projectSection = document.querySelector('.project-section');
+    const projectScreen = document.querySelector('.project-screen');
 
     projectArray.forEach((project) => {
         if (project.projectName === projectMatcher.matcher)
@@ -54,7 +54,7 @@ export function DisplayProjectTodos(){
     
                 projectTodosSection.appendChild(projectTodo); 
     
-                projectSection.appendChild(projectTodosSection); 
+                projectScreen.appendChild(projectTodosSection); 
             }
         }
     });

@@ -9,18 +9,34 @@ body{
     box-sizing: border-box;
 }
 
+/* font-0 - Comfortaa */
+@font-face {
+    font-family:comfortaa;
+    src: url('../fonts/comfortaa/Comfortaa-Regular.ttf');
+} 
+
+/* font-1 - Springtown Market */
+@font-face {
+    font-family: springtown-market;
+    src: url('../fonts/springtown-market/SpringtownMarket_PERSONAL_USE_ONLY.otf');
+}
+
 /****************************************************************************************************************************************************************************/
 /****************************************************************************************************************************************************************************/
 /* priority-choosen */
 .priority-chosen{
-    background-color: lightblue; 
+    background-color: #2dd4bf;
+    border: 1px solid #2dd4bf !important; 
+    color: white; 
 }
 
 /****************************************************************************************************************************************************************************/
 /****************************************************************************************************************************************************************************/
 /* current-button */
 .current-button{
-    background-color: lightcoral;
+    background-color: #2563eb !important;
+    border: 1px solid #2563eb !important; 
+    color: white; 
 }
 
 /****************************************************************************************************************************************************************************/
@@ -32,7 +48,495 @@ body{
 
 /****************************************************************************************************************************************************************************/
 /****************************************************************************************************************************************************************************/
+/* disable-resize */
+.disable-resize{
+    resize: none; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* error-container */
+.error-container{
+    display: flex;
+    flex-direction: column; 
+    gap: 3px; 
+
+    color: #ef4444;
+    font-weight: bold; 
+    text-align: center; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |Content| */
+#content{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+
+    border: 1px solid red;
+    padding: 10px; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |Main Title| */
+.main-title{
+    font-family: springtown-market, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    font-size: 3em;
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |Main Screen| */
+.main-screen{
+    display: flex;
+    gap: 3px;
+
+    border: 1px solid purple;
+    padding: 5px;
+    height: 550px; /* Desktop Change: Might change height. */
+}
+.main-screen > div{
+    /* border: 1px solid green; */
+    border-radius: 10px;
+}
+
+.main-screen > div:nth-child(1){ /* Button Section (Button Screen) */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 5px;
+    background-color: #94a3b8; 
+}
+.main-screen > div:nth-child(1) > button{
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold;
+    border-radius: 10px; 
+    border: 1px solid #0f172a3f;
+    padding: 5px 5px 5px 5px;
+}
+.main-screen > div:nth-child(1) > button:hover{
+    background-color: #2564eb8c;
+    border: 1px solid #2564eb8c;
+    color: white; 
+    cursor: pointer; 
+}
+
+.main-screen > div:nth-child(2){ /* Display Screen (Input Section) */
+    /* flex: 1; */
+    width: 400px; /*Size may need to change depending on the amount of content. */
+    text-align: center;
+    background-color: #94a3b8; 
+    padding: 10px;
+}
+.main-screen > div:nth-child(2) > form{ /* New Todo Form */
+    display: flex; 
+    flex-direction: column;
+    gap: 20px;
+}
+.main-screen > div:nth-child(2) > form > div > label{
+    display: block;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold;
+    color: white;
+}
+.main-screen > div:nth-child(2) > form > div:nth-child(4) > h4{
+    margin: 0;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: white; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |New Todo Button Screen| */
+#todo-name{ /* Todo Name Input */
+    border: 1px solid #0f172aa9;
+    border-top: none; 
+    border-right: none;
+    border-left: none;
+    background-color: #94a3b8; 
+    color: white;
+    font-size: 14px;
+    width: 180px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+#todo-name:focus{
+    outline: none;
+    border-bottom-color: #2563eb; 
+}
+
+#todo-description{ /* Todo Description Input */
+    border: 1px solid #0f172aa9;
+    border-radius: 10px; 
+    background-color: #94a3b8;
+    color: white;
+    width: 200px;
+    padding: 5px;
+    font-size: 14px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+#todo-description:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+
+#todo-due-date{ /* Todo Due Date Input */
+    border: 1px solid #0f172aa9;
+    border-radius: 10px; 
+    background-color: #94a3b8; 
+    padding: 5px;
+    color: white;
+    font-size: 16px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+#todo-due-date:hover{
+    cursor: pointer; 
+}
+#todo-due-date:focus{
+    outline: none;
+    border-color: #2563eb; 
+}
+
+.main-screen > div:nth-child(2) > form > div:nth-child(4) > div{ /* Todo Priority Container */ 
+    display: flex;
+    justify-content: center; 
+    gap: 5px;
+    
+    /* border: 1px solid black; */
+}
+.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button{
+    padding: 0px 10px 0px 10px;
+    font-size: 16px; 
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; 
+    border: 1px solid #0f172a3f;
+    border-radius: 10px; 
+}
+.main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button:hover{
+    background-color:#2dd4bf; 
+    border: 1px solid #2dd4bf; 
+    color: white; 
+    cursor: pointer; 
+}
+
+.main-screen > div:nth-child(2) > form > div:nth-child(5) > button{ /* Todo Submit Button */
+    font-size: 16px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold;
+    padding: 0px 10px 0px 10px; 
+    background-color: #2564eb8c;
+    border: 1px solid #2564eb8c;
+    border-radius: 10px;
+    color: white; 
+}
+.main-screen > div:nth-child(2) > form > div:nth-child(5) > button:hover{
+    border: 1px solid #2563eb;
+    background-color: #2563eb; 
+    cursor: pointer; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |View Todos Screen| */
+.todo-screen{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin; 
+    scrollbar-color: #94a3b8 #0f172aa9; 
+    padding: 10px;
+}
+.todo-screen > div{ /* todo rows (todo items)*/
+    display: flex; 
+    flex-direction: column;
+    gap: 5px;
+
+    border: 1px solid #0f172aa9;
+    border-radius: 10px;
+    padding: 3px; 
+}
+.todo-screen > div > div:nth-child(1){ /* Todo name container */
+    word-wrap: break-word; 
+    color: white; 
+    font-size: 15px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; 
+}
+.todo-screen > div > div:nth-child(2){/* Todo Misc Container */
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.todo-screen > div > div:nth-child(2) > img[src]{ /* Misc (Description|Edit|Delete) */
+    width: 40px;
+    height: 40px; 
+    cursor: pointer; 
+}
+
+/* View Todo Screen|Description Window */
+.todo-description-window{
+    display: flex;
+    flex-direction: column; 
+    gap: 3px;
+
+    border: 2px solid #0f172a !important;
+    border-radius: 10px; 
+    position: absolute;
+    width: 500px;
+    /* right: 37px; */
+    top: 100px;
+    height: 300px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color:#94a3b888;
+}
+.todo-description-window > div:nth-child(1){ /* Close Container */
+    display: flex;
+    justify-content: end;
+
+    /* border: 1px solid purple; */
+}
+.todo-description-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+    width: 40px;
+    height: 40px;
+    opacity: 0.6;
+    cursor: pointer; 
+}
+.todo-description-window > div:nth-child(2){ /* Details Container */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; 
+
+    /* border: 1px solid darkgreen;  */
+    padding: 5px;
+}
+.todo-description-window > div:nth-child(2) > div{
+    border: 1px solid #0f172aa9;
+    border-radius: 10px; 
+    word-wrap:break-word;
+    padding: 3px; 
+}
+.todo-description-window > div:nth-child(2) > div > div:nth-child(1){ /* Labels */
+    font-weight: bold;
+}
+.todo-description-window > div:nth-child(2) > div > div:nth-child(2){ /* description data  */
+    font-size: 15px; 
+    /* color: #e5e7eb; */
+    color: white;
+}
+
+/* View Todo Screen|Edit Todo Window */
+.edit-todo-window{
+    border: 2px solid #0f172a;
+    border-radius: 10px; 
+    background-color: #94a3b888;
+    position: absolute;
+    width: 500px;
+    height: auto;
+    top: 100px;
+    /* right: 37px; */
+}
+.edit-todo-window > div:nth-child(1){ /* Close Container */
+    display: flex;
+    justify-content: end;
+
+    border: 1px solid blue;
+}
+.edit-todo-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+    width: 40px;
+    height: 40px;
+    opacity: 0.6;
+    cursor: pointer; 
+}
+.edit-todo-window > form{ /* Edit Section (Form)*/
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    padding: 10px;
+}
+.edit-todo-window > form > div /* Edit Todo Field Section Containers */
+{
+    /* border: 1px solid lightblue; */
+}
+.edit-todo-window > form > div > label{
+    display: block; 
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; 
+    text-align: center; 
+    color: white; 
+}
+.edit-todo-window > form > div > h4{
+    margin: 0; 
+    text-align: center;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: white; 
+}
+
+#edit-name{ /* Edit Name Input */
+    border: 1px solid #0f172aa9;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: #94a3b888;
+    width: 180px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: white;
+}
+#edit-name:focus{
+    outline: none; 
+    border-bottom-color: #2563eb; 
+}
+
+#edit-description{ /* Edit Description Input */
+    border: 1px solid #0f172aa9;
+    border-radius: 10px;
+    padding: 5px; 
+    background-color: #94a3b888;
+    color: white; 
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+}
+#edit-description:focus{
+    outline: none; 
+    border-color:#2563eb; 
+}
+
+#edit-due-date{ /* Edit Due Date Input */
+    border: 1px solid #0f172aa9;
+    border-radius: 10px; 
+    background-color: #94a3b888;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    color: white;
+    padding: 3px;
+}
+#edit-due-date:hover{
+    cursor: pointer; 
+}
+#edit-due-date:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+
+.edit-todo-window > form > div:nth-child(4) > div{ /* Edit Todo Priority Container */
+    display: flex;
+    gap: 5px; 
+}
+.edit-todo-window > form > div:nth-child(4) > div > button{
+    border: 1px solid #0f172aa9;
+    border-radius: 10px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; 
+    padding: 0px 5px 0px 5px;
+}
+.edit-todo-window > form > div:nth-child(4) > div > button:hover{
+    background-color: #2dd4bf;
+    border: 1px solid #2dd4bf;
+    color: white; 
+    cursor: pointer; 
+}
+
+.edit-todo-window > form > div:nth-child(5) > button{ /* Edit Todo Submit Button */
+    border: 1px solid #2564eb8c;
+    border-radius: 10px; 
+    background-color: #2564eb8c;
+    color: white;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; 
+    padding: 3px 10px 3px 10px; 
+}
+.edit-todo-window > form > div:nth-child(5) > button:hover{
+    background-color: #2563eb;
+    border: 1px solid #2563eb;
+    cursor: pointer; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |New Project Button Screen| */
+#project-name{ /* Project Name Input */
+    background-color: #94a3b8;
+    border: 1px solid #0f172aa9;
+    border-top: none;
+    border-right: none;
+    border-left: none; 
+    width: 180px;
+    font-size: 14px; 
+    color: white;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+}
+#project-name:focus{
+    outline: none; 
+    border-bottom-color: #2563eb;
+}
+
+.main-screen > div:nth-child(2) > form > div:nth-child(2) > button{ /* Project Submit Button */
+    font-size: 16px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold;
+    padding: 0px 10px 0px 10px; 
+    background-color: #2564eb8c;
+    border: 1px solid #2564eb8c;
+    border-radius: 10px;
+    color: white;
+}
+.main-screen > div:nth-child(2) > form > div:nth-child(2) > button:hover{
+    border: 1px solid #2563eb;
+    background-color:#2563eb;
+    cursor: pointer; 
+}
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
+/* |View Projects Screen| */
+.projects-screen{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    height: 100%;
+    overflow-y: scroll; 
+    scrollbar-width: thin; 
+    scrollbar-color: #94a3b8 #0f172aa9; 
+    padding: 10px;
+}
+.projects-screen > div{ /* Project Container (Each Project) */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border: 1px solid #0f172aa9;
+    border-radius: 10px;
+    font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    padding: 3px; 
+}
+.projects-screen > div > div:nth-child(1){ /* Project Name */
+    color: white; 
+    font-weight: bold; 
+    word-wrap: break-word; 
+    cursor: pointer; 
+}
+.projects-screen > div > div:nth-child(2){ /* Project Misc Container (Todos|Delete Button) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.projects-screen > div > div:nth-child(2) > img[src]{ /* Delete Button Image */
+    width: 40px;
+    height: 40px;
+}
+
+
+
+/****************************************************************************************************************************************************************************/
+/****************************************************************************************************************************************************************************/
 /* Mobile Developement */
+/* Media-0 - For desktop miniturization and some mobile screens. */
 @media only screen and (max-width: 1000px){
     #content{
         display: flex;
@@ -43,12 +547,13 @@ body{
         padding: 10px;
     }
 
-    /* main title */
-    #content > h1{
-        text-align: center;
+    /* |Main Title| */
+    .main-title{
+        font-family: springtown-market, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 2em; 
     }
 
-    /* |Main Screen Section| */
+    /* |Main Screen| */
     .main-screen{
         display: flex;
         gap: 3px;
@@ -58,57 +563,157 @@ body{
         height: 550px;
     }
     .main-screen > div{
-        border: 1px solid green;
+        /* border: 1px solid green; */
+        border-radius: 10px;
     }
 
-    .main-screen > div:nth-child(1){ /* Button Section */
+    .main-screen > div:nth-child(1){ /* Button Section (Button Screen) */
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
+
+        padding: 5px;
+        background-color: #94a3b8; 
+    }
+    .main-screen > div:nth-child(1) > button{
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        border-radius: 10px; 
+        border: 1px solid #0f172a3f;
+        padding: 5px 5px 5px 5px;
     }
 
-    .main-screen > div:nth-child(1) > div{ /* Display Projects Window */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        
-        border: 1px solid blue;
-        height: 100%;
-        overflow-y: scroll;
-    }
-    .main-screen > div:nth-child(1) > div > h4{ /* Display Title (projects) */
-        margin: 0;
-    }
-
-    .main-screen > div:nth-child(2){ /* Input Section */
+    .main-screen > div:nth-child(2){ /* Display Screen (Input Section) */
         /* flex: 1; */
         width: 200px; /*Size may need to change depending on the amount of content. */
         text-align: center;
+        background-color: #94a3b8; 
+        padding: 10px;
     }
     .main-screen > div:nth-child(2) > form{ /* New Todo Form */
         display: flex; 
         flex-direction: column;
-        gap:10px;
+        gap: 20px;
     }
     .main-screen > div:nth-child(2) > form > div > label{
         display: block;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        color: white;
     }
     .main-screen > div:nth-child(2) > form > div:nth-child(4) > h4{
         margin: 0;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: white; 
     }
 
-    /* |Todo Section| */
-    .todo-section{
+    /* |New Todo Button Screen| */
+    #todo-name{ /* Todo Name Input*/
+        border: 1px solid #0f172aa9;
+        border-top: none; 
+        border-right: none;
+        border-left: none;
+        background-color: #94a3b8; 
+        color: white;
+        font-size: 14px;
+        width: 150px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-name:focus{
+        outline: none;
+        border-bottom-color: #2563eb; 
+    }
+
+    #todo-description{ /* Todo Description Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        background-color: #94a3b8;
+        color: white;
+        width: 170px;
+        padding: 5px;
+        font-size: 14px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-description:focus{
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    #todo-due-date{ /* Todo Due Date Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        background-color: #94a3b8; 
+        padding: 5px;
+        color: white;
+        font-size: 16px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-due-date:focus{
+        outline: none;
+        border-color: #2563eb; 
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > div{ /* Todo Priority Container */ 
+        display: flex;
+        justify-content: center; 
+        gap: 5px;
+        
+        /* border: 1px solid black; */
+    }
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button{
+        padding: 0px 10px 0px 10px;
+        font-size: 16px; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        border: 1px solid #0f172a3f;
+        border-radius: 10px; 
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(5) > button{ /* Todo Submit Button */
+        font-size: 16px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        padding: 0px 10px 0px 10px; 
+        background-color: #2563eb;
+        border: 1px solid #2563eb;
+        border-radius: 10px;
+        color: white; 
+    }
+
+    /* |View Todos Screen| */
+    .todo-screen{
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 10px;
 
         height: 100%;
         overflow-y: scroll;
+        padding: 0; 
     }
-    .todo-section > div{ /* todo rows (todo items)*/
-        border: 1px solid orange;
+    .todo-screen > div{ /* todo rows (todo items)*/
+        display: flex; 
+        flex-direction: column;
+        gap: 5px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        padding: 3px; 
+    }
+    .todo-screen > div > div:nth-child(1){ /* Todo name container */
+        word-wrap: break-word; 
+        color: white; 
+        font-size: 15px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+    }
+    .todo-screen > div > div:nth-child(2){/* Todo Misc Container */
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+    .todo-screen > div > div:nth-child(2) > img[src]{ /* Misc (Description|Edit|Delete) */
+        width: 40px;
+        height: 40px; 
     }
 
     /* |Todo Description Window|*/
@@ -117,18 +722,21 @@ body{
         flex-direction: column; 
         gap: 3px;
 
-        border: 3px solid black !important;
+        border: 2px solid #0f172a !important;
+        border-radius: 10px; 
         position: absolute;
         width: 300px;
-        right: 37px;
-        top: 150px;
-        height: 200px;
+        /* right: 37px; */
+        top: 100px;
+        height: auto;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        background-color:#94a3b888;
     }
     .todo-description-window > div:nth-child(1){ /* Close Container */
         display: flex;
         justify-content: end;
 
-        border: 1px solid purple;
+        /* border: 1px solid purple; */
     }
     .todo-description-window > div:nth-child(1) > img[src]{ /* Close Button Image */
         width: 40px;
@@ -140,22 +748,34 @@ body{
         flex-direction: column;
         gap: 5px; 
 
-        border: 1px solid darkgreen; 
+        /* border: 1px solid darkgreen;  */
         padding: 5px;
     }
     .todo-description-window > div:nth-child(2) > div{
-        border: 1px solid pink;
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        word-wrap:break-word;
+        padding: 3px; 
+    }
+    .todo-description-window > div:nth-child(2) > div > div:nth-child(1){ /* Labels */
+        font-weight: bold;
+    }
+    .todo-description-window > div:nth-child(2) > div > div:nth-child(2){ /* description data  */
+        font-size: 15px; 
+        /* color: #e5e7eb; */
+        color: white;
     }
 
     /* |Edit Todo Window| */
     .edit-todo-window{
-        border: 1px solid black;
+        border: 2px solid #0f172a;
+        border-radius: 10px; 
+        background-color: #94a3b888;
         position: absolute;
-        width: 300px;
-        height: 350px;
-        top: 150px;
-        right: 37px;
-        text-align: center;
+        width: 250px;
+        height: auto;
+        top: 100px;
+        /* right: 37px; */
     }
     .edit-todo-window > div:nth-child(1){ /* Close Container */
         display: flex;
@@ -169,81 +789,175 @@ body{
         opacity: 0.6;
     }
     .edit-todo-window > form{ /* Edit Section (Form)*/
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+
         padding: 10px;
     }
-    .edit-todo-window > form > div
+    .edit-todo-window > form > div /* Edit Todo Field Section Containers */
     {
-        border: 1px solid lightblue;
+        /* border: 1px solid lightblue; */
     }
     .edit-todo-window > form > div > label{
         display: block; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        text-align: center; 
+        color: white; 
+    }
+    .edit-todo-window > form > div > h4{
+        margin: 0; 
+        text-align: center;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: white; 
     }
 
-    /* |Project Section| */
-    .project-section{
-        border: 1px solid orangered;
-        padding: 10px;
+    #edit-name{ /* Edit Name Input */
+        border: 1px solid #0f172aa9;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        background-color: #94a3b888;
+        width: 150px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: white;
     }
-    .project-section > div:nth-child(1){ /* Add Todo Container */
+    #edit-name:focus{
+        outline: none; 
+        border-bottom-color: #2563eb; 
+    }
+
+    #edit-description{ /* Edit Description Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        padding: 5px; 
+        background-color: #94a3b888;
+        color: white; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    }
+    #edit-description:focus{
+        outline: none; 
+        border-color:#2563eb; 
+    }
+
+    #edit-due-date{ /* Edit Due Date Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        background-color: #94a3b888;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+        color: white;
+        padding: 3px;
+    }
+    #edit-due-date:focus{
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .edit-todo-window > form > div:nth-child(4) > div{ /* Edit Todo Priority Container */
         display: flex;
-        justify-content: end;
-
-        border: 1px solid yellow;
+        gap: 5px; 
     }
-    .project-section > div:nth-child(1) > img[src]{ /* Add Todo Button */
-        width: 40px;
-        height: 40px;
-        opacity: 0.6;
-    }
-
-    /* |Add Todo Window (project Section)| */
-    .add-todo-window{
-        position: absolute;
-        width: 250px;
-        height: 300px;
-        top: 100px;
-        border: 1px solid lightseagreen;
-    }
-    .add-todo-window > div:nth-child(1){ /* Close Button Container */
-        display: flex;
-        justify-content: end;
-
-        border: 1px solid blue;
-    }
-    .add-todo-window > div:nth-child(1) > img[src]{ /* Close Button Image */
-        width: 40px;
-        height: 40px;
-        opacity: 0.6;
+    .edit-todo-window > form > div:nth-child(4) > div > button{
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        padding: 0px 5px 0px 5px;
     }
 
-    .add-todo-window > form { /* Add Todo Section (Form) */
+    .edit-todo-window > form > div:nth-child(5) > button{ /* Edit Todo Submit Button */
+        border: 1px solid #2563eb;
+        border-radius: 10px; 
+        background-color: #2563eb;
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        padding: 3px 10px 3px 10px; 
+    }
+
+    /* |New Project Button Screen| */
+    #project-name{ /* Project Name Input */
+        background-color: #94a3b8;
+        border: 1px solid #0f172aa9;
+        border-top: none;
+        border-right: none;
+        border-left: none; 
+        width: 150px;
+        font-size: 14px; 
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    }
+    #project-name:focus{
+        outline: none; 
+        border-bottom-color: #2563eb;
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(2) > button{ /* Project Submit Button */
+        font-size: 16px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        padding: 0px 10px 0px 10px; 
+        background-color: #2563eb;
+        border: 1px solid #2563eb; 
+        border-radius: 10px;
+        color: white;
+    }
+
+    /* |View Projects Screen| */
+    .projects-screen{
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 10px;
+        
+        height: 100%;
+        overflow-y: scroll; 
+        padding: 0;
     }
-    .add-todo-window > form > div > label{
-        display: block; 
-        text-align: center;
+    .projects-screen > div{ /* Project Container (Each Project) */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        padding: 3px; 
     }
-    .add-todo-window > form > div > h4{
-        text-align: center;
-        margin: 0;
+    .projects-screen > div > div:nth-child(1){ /* Project Name */
+        color: white; 
+        font-weight: bold; 
+        word-wrap: break-word; 
+    }
+    .projects-screen > div > div:nth-child(2){ /* Project Misc Container (Todos|Delete Button) */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .projects-screen > div > div:nth-child(2) > img[src]{ /* Delete Button Image */
+        width: 40px;
+        height: 40px;
     }
 
-    /* |Delete Project Window (Project Section)| */
+    /* |Delete Project Window|*/
     .delete-project-window{ 
+        display: flex;
+        flex-direction: column;
+        gap: 15px; 
+
         position: absolute;
         top: 100px;
         width: 250px;
         height: 300px;
-        border: 1px solid lightsalmon;
+        border: 2px solid #0f172a;
+        border-radius: 10px;
+        padding: 10px; 
     }
     .delete-project-window > div:nth-child(1){ /* Close Button Container */
         display: flex;
         justify-content: end; 
-
-        border: 1px solid orange;
     }
     .delete-project-window > div:nth-child(1) > img[src]{ /* Close Button Image */
         width: 40px;
@@ -256,52 +970,214 @@ body{
         flex-direction: column;
         align-items: center;
 
-        border: 1px solid black;
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        padding: 5px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
     .delete-project-window > div:nth-child(2) > p{ /* Delete Prompt Message */
         color: red; 
+        text-align: center; 
     }
     .delete-project-window > div:nth-child(2) > button{ /* Delete prompt Button */
-        color: red;
+        border: 1px solid #f87171;
+        border-radius: 10px;
+        padding: 3px 15px 3px 15px;
+        background-color: #f87171; 
+        color: white;
+        font-weight: bold;  
+        font-size: 15px; 
     }
 
-    /* |Project Todos Section| */
-    .project-todos-section{
+    /* |Project Screen| */
+    .project-screen{  
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        gap: 10px; 
+
+        /* border: 1px solid orange;  */
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 14px;
+        font-weight: bold; 
+        color: white; 
+    }
+    .project-screen > div:nth-child(1){ /* Project Name */
+        font-size: 16px; 
+        word-wrap: break-word;
+        width: 130px; 
+        /* border: 1px solid black; */
+        letter-spacing: 2px;
+    }
+    .project-screen > div:nth-child(2){ /* project prompt Container (Arrow Button|Todo List Logo|Add Todo Button) */
+        display: flex;
+        align-items: center;
+        justify-content: space-around;  
+        gap: 10px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        width: 180px; 
+    }
+    .project-screen > div:nth-child(2) > img[src]{ /* Arrow Button & Add Todo Button */
+        width: 40px;
+        height: 40px;
+    }
+    .project-todos-section{ /* Project Todos Container (Todo Name|Todo Details|Edit Todo|Delete Todo) */
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        border: 1px solid green;
+        /* border: 1px solid green; */
     }
-    .project-todos-section > div{ /* Project Todos */
+    .project-todos-section > div{ /* Project Todo (Each todo) */
         display: flex;
         flex-direction: column;
         gap: 3px;
-        border: 1px solid gold;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        padding: 5px; 
+        width: 180px; 
+    }
+    .project-todos-section > div > div:nth-child(1){ /* Project Todo Name */
+        word-wrap: break-word;
     }
     .project-todos-section > div > div:nth-child(2){ /* Project Todo Button Section */
         display: flex;
         justify-content: space-evenly;
         gap: 5px;
     }
-    .project-todos-section > div > div:nth-child(2) > img[src]{ /* Porject Todo Buttons */
+    .project-todos-section > div > div:nth-child(2) > img[src]{ /* Project Todo Buttons */
         width: 40px;
         height: 40px;
     }
 
-    /* |Project Todo Details Window| */
+    /* |Add Todo Window (Project Screen)| */
+    .add-todo-window{
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+
+        position: absolute;
+        width: 250px;
+        height: auto;
+        top: 100px;
+        border: 2px solid #0f172a;
+        border-radius: 10px; 
+        background-color:#94a3b888; 
+    }
+    .add-todo-window > div:nth-child(1){ /* Close Button Container */
+        display: flex;
+        justify-content: end;
+
+        /* border: 1px solid blue; */
+    }
+    .add-todo-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+
+    .add-todo-window > form { /* Add Todo Section (Form) */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .add-todo-window > form > div > label{
+        display: block; 
+        text-align: center;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        color: white; 
+    }
+    .add-todo-window > form > div > h4{
+        text-align: center;
+        margin: 0;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: white; 
+    }
+
+    #add-todo-name{ /* Project Todo Name Input */
+        border: 1px solid #0f172aa9;
+        border-left: none;
+        border-right: none;
+        border-top: none; 
+        background-color:#94a3b888;
+        width: 150px; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+        color: white; 
+    }
+    #add-todo-name:focus{
+        outline: none;
+        border-bottom-color:#2563eb;
+    }
+
+    #add-todo-description{ /* Project Todo Description Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        padding: 5px; 
+        color: white;
+        background-color: #94a3b888;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #add-todo-description:focus{
+        outline: none;
+        border: 1px solid #2563eb;
+    }
+
+    #add-todo-due-date{ /* Project Todo Due Date Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        padding: 3px;
+        color: white;
+        background-color:#94a3b888;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #add-todo-due-date:focus{
+        outline: none; 
+        border: 1px solid #2563eb;
+    }
+
+    .add-todo-window > form > div:nth-child(4) > div:nth-child(2){ /* Project Todo Priority Container */
+        display: flex;
+        gap: 5px;
+    }
+    .add-todo-window > form > div:nth-child(4) > div:nth-child(2) > button{
+        border: 1px solid #0f172aa9; 
+        border-radius: 10px;
+        padding: 0px 5px 0px 5px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+    }
+
+    .add-todo-window > form > div:nth-child(5) > button{ /* Project Todo Submit Button */
+        border: 1px solid #2563eb;
+        border-radius: 10px;
+        background-color:#2563eb; 
+        color: white;
+        padding: 1px 10px 1px 10px; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+    }
+
+    /* |Project Todo Details Window (Project Screen)| */
     .project-todo-details-window{
-        position:absolute;
+        position: absolute;
         width: 250px;
         height: 300px;
         top: 100px; 
-        border: 1px solid black;
+        border: 2px solid #0f172a; 
+        border-radius: 10px; 
+        background-color: #94a3b888;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
     .project-todo-details-window > div:nth-child(1){ /* Close Button Container */
         display: flex;
         justify-content: end;
 
-        border: 1px solid orange;
+        /* border: 1px solid orange; */
     }
     .project-todo-details-window > div:nth-child(1) > img[src]{ /* Close Button */
         width: 40px;
@@ -313,26 +1189,570 @@ body{
         flex-direction: column;
         gap: 5px;
 
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
+        padding: 5px; 
+    }
+    .project-todo-details-window > div:nth-child(2) > div{ /* Description|Due Date|Priority */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        padding: 5px;
+    }
+    .project-todo-details-window > div:nth-child(2) > div > div:nth-child(1){ /* Data Labels */
+        font-weight: bold; 
+    }
+    .project-todo-details-window > div:nth-child(2) > div > div:nth-child(2){ /* Local Storage Data */
+        color: white; 
+        font-size: 15px; 
+    }
+    .project-todo-details-window > div:nth-child(2) > div:nth-child(1){ /* Description */
+        word-wrap: break-word; 
     }
 
     /* |Project Todo Edit Window| */
     .project-todo-edit-window{
-        border: 1px solid black;
+        border: 2px solid #0f172a; 
+        border-radius: 10px; 
+        background-color:#94a3b888; 
         width: 250px;
-        height: 300px;
+        height: auto;
         position: absolute;
         top: 100px;
+        color: white;
     }
-    .project-todo-edit-window > div:nth-child(1){
+    .project-todo-edit-window > div:nth-child(1){ /* Close Container */
         display: flex;
         justify-content: end;
         
-        border: 1px solid gold;
+        /* border: 1px solid gold; */
     }
     .project-todo-edit-window > div:nth-child(1) > img[src]{
         width: 40px;
         height: 40px;
         opacity: 0.6;
+    }
+    .project-todo-edit-window > form{ /* Todo Form */
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        gap: 15px; 
+
+        padding: 10px;
+    }
+    .project-todo-edit-window > form > div > label{
+        display: block;
+        text-align: center; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+    }
+    .project-todo-edit-window > form > div > h4{
+        text-align: center;
+        margin: 0;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    #edit-project-name-todo{ /* Project Todo Name Input */
+        border: 1px solid #0f172aa9; 
+        border-left: none;
+        border-right: none;
+        border-top: none; 
+        background-color:#94a3b888; 
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+        width: 150px;
+    }
+    #edit-project-name-todo:focus{
+        outline: none;
+        border-bottom-color: #2563eb;
+    }
+
+    #edit-project-todo-description{ /* Project Todo Description Input */
+        background-color: #94a3b888;
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        padding: 5px;
+    }
+    #edit-project-todo-description:focus{
+        outline: none;
+        border:1px solid #2563eb;
+    }
+
+    #edit-project-todo-due-date{ /* Project Todo Due Date Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        background-color: #94a3b888;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+        color: white; 
+        padding: 3px; 
+    }
+    #edit-project-todo-due-date:focus{
+        outline: none;
+        border: 1px solid #2563eb; 
+    }
+
+    .project-todo-edit-window > form > div:nth-child(4) > div:nth-child(2){ /* Project Todo Priority Container */
+        display: flex;
+        gap: 10px;
+    }
+    .project-todo-edit-window > form > div:nth-child(4) > div:nth-child(2) > button{ 
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 0px 5px 0px 5px; 
+        font-weight: bold; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .project-todo-edit-window > form > div:nth-child(5) > button{ /* Project Todo Submit Button */
+        border: 1px solid black; 
+        border-radius: 10px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        background-color: #2563eb; 
+        color: white;
+        padding: 3px 10px 3px 10px; 
+    }
+
+    /* |New Note Button Screen| */
+    #note-input{
+        border-radius: 10px;
+        border: 1px solid #0f172aa9; 
+        background-color: #94a3b8; 
+        padding: 5px;
+        color: white;
+        width: 170px;
+        font-size: 14px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #note-input:focus{
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    /* |View Notes Screen| */
+    .notes-screen{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        padding: 3px;
+        overflow-y: scroll; 
+        height: 100%; 
+    }
+    .notes-screen > div{ /* Notes Container */
+        border: 1px solid #0f172aa9; 
+        border-radius: 10px; 
+        text-align: left;
+        padding: 3px;
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    .notes-screen > div > div:nth-child(1){ /* Delete Notes Container */
+        display: flex;
+        justify-content: end;
+    }
+    .notes-screen > div > div:nth-child(1) > img[src]{ /* Delete Notes Button Image */
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* media-1 - For mobile screens smaller than 340px. */
+@media only screen and (max-width: 340px){
+    .main-screen > div:nth-child(1){ /* Button Section (Button Screen) */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        padding: 5px;
+        background-color: #94a3b8; 
+    }
+    .main-screen > div:nth-child(1) > button{
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        font-size: 9px;
+        border-radius: 10px; 
+        border: 1px solid #0f172a3f;
+        padding: 5px 5px 5px 5px;
+    }
+}
+
+/* media-2 - For mobile viewports smaller than 300px */
+@media only screen and (max-width: 300px){
+    .main-screen > div:nth-child(1){ /* Button Section (Button Screen) */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        padding: 5px;
+        background-color: #94a3b8; 
+        width: fit-content;
+    }
+    .main-screen > div:nth-child(1) > button{
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        font-size: 9px; 
+        border-radius: 10px; 
+        border: 1px solid #0f172a3f;
+        padding: 5px 5px 5px 5px;
+    }
+
+    .main-screen > div:nth-child(2){ /* Display Screen (Input Section) */
+        /* flex: 1; */
+        width: fit-content; 
+        text-align: center;
+        background-color: #94a3b8; 
+        padding: 10px;
+    }
+    .main-screen > div:nth-child(2) > form{ /* New Todo Form */
+        display: flex; 
+        flex-direction: column;
+        gap: 20px;
+    }
+    .main-screen > div:nth-child(2) > form > div > label{
+        display: block;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        color: white;
+    }
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > h4{
+        margin: 0;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: white; 
+    }
+
+    /* |New Todo Button Screen| */
+    #todo-name{ /* Todo Name Input*/
+        border: 1px solid #0f172aa9;
+        border-top: none; 
+        border-right: none;
+        border-left: none;
+        background-color: #94a3b8; 
+        color: white;
+        font-size: 14px;
+        width: 130px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-name:focus{
+        outline: none;
+        border-bottom-color: #2563eb; 
+    }
+
+    #todo-description{ /* Todo Description Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        background-color: #94a3b8;
+        color: white;
+        width: 130px;
+        padding: 5px;
+        font-size: 14px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-description:focus{
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    #todo-due-date{ /* Todo Due Date Input */
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        background-color: #94a3b8; 
+        padding: 5px;
+        color: white;
+        width: 130px;
+        font-size: 12px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #todo-due-date:focus{
+        outline: none;
+        border-color: #2563eb; 
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > div{ /* Todo Priority Container */ 
+        display: flex;
+        justify-content: center; 
+        gap: 5px;
+        
+        /* border: 1px solid black; */
+    }
+    .main-screen > div:nth-child(2) > form > div:nth-child(4) > div > button{
+        /* padding: 2px 1px 2px 1px; */
+        padding: 3px;
+        font-size: 12px; 
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+        border: 1px solid #0f172a3f;
+        border-radius: 10px; 
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(5) > button{ /* Todo Submit Button */
+        font-size: 16px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        padding: 0px 10px 0px 10px; 
+        background-color: #2563eb;
+        border: 1px solid #2563eb;
+        border-radius: 10px;
+        color: white; 
+    }
+
+    /* |View Todos Screen|*/
+    .todo-screen{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        height: 100%;
+        overflow-y: scroll;
+    }
+    .todo-screen > div{ /* todo rows (todo items)*/
+        display: flex; 
+        flex-direction: column;
+        gap: 5px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        padding: 3px; 
+        width: 130px;
+    }
+    .todo-screen > div > div:nth-child(1){ /* Todo name container */
+        word-wrap: break-word; 
+        color: white; 
+        font-size: 15px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold; 
+    }
+    .todo-screen > div > div:nth-child(2){/* Todo Misc Container */
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+    .todo-screen > div > div:nth-child(2) > img[src]{ /* Misc (Description|Edit|Delete) */
+        width: 40px;
+        height: 40px; 
+    }
+
+    /* |Todo Description Window| */
+    .todo-description-window{
+        display: flex;
+        flex-direction: column; 
+        gap: 3px;
+
+        border: 2px solid #0f172a !important;
+        border-radius: 10px; 
+        position: absolute;
+        width: 250px;
+        /* right: 37px; */
+        top: 100px;
+        height: auto;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        background-color:#94a3b888;
+    }
+    .todo-description-window > div:nth-child(1){ /* Close Container */
+        display: flex;
+        justify-content: end;
+
+        /* border: 1px solid purple; */
+    }
+    .todo-description-window > div:nth-child(1) > img[src]{ /* Close Button Image */
+        width: 40px;
+        height: 40px;
+        opacity: 0.6;
+    }
+    .todo-description-window > div:nth-child(2){ /* Details Container */
+        display: flex;
+        flex-direction: column;
+        gap: 5px; 
+
+        /* border: 1px solid darkgreen;  */
+        padding: 5px;
+    }
+    .todo-description-window > div:nth-child(2) > div{
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        word-wrap:break-word;
+        padding: 3px; 
+    }
+    .todo-description-window > div:nth-child(2) > div > div:nth-child(1){ /* Labels */
+        font-weight: bold;
+    }
+    .todo-description-window > div:nth-child(2) > div > div:nth-child(2){ /* description data  */
+        font-size: 15px; 
+        /* color: #e5e7eb; */
+        color: white;
+    }
+
+    /* |New Project Button Screen| */
+    #project-name{ /* Project Name Input */
+        background-color: #94a3b8;
+        border: 1px solid #0f172aa9;
+        border-top: none;
+        border-right: none;
+        border-left: none; 
+        width: 130px;
+        font-size: 14px; 
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    }
+    #project-name:focus{
+        outline: none; 
+        border-bottom-color: #2563eb;
+    }
+
+    .main-screen > div:nth-child(2) > form > div:nth-child(2) > button{ /* Project Submit Button */
+        font-size: 16px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-weight: bold;
+        padding: 0px 10px 0px 10px; 
+        background-color: #2563eb;
+        border: 1px solid #2563eb; 
+        border-radius: 10px;
+        color: white;
+    }
+
+    /* |View Projects Screen| */
+    .projects-screen{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
+        height: 100%;
+        overflow-y: scroll; 
+    }
+    .projects-screen > div{ /* Project Container (Each Project) */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        padding: 3px; 
+        width: 130px;
+    }
+    .projects-screen > div > div:nth-child(1){ /* Project Name */
+        color: white; 
+        font-weight: bold; 
+        word-wrap: break-word; 
+    }
+    .projects-screen > div > div:nth-child(2){ /* Project Misc Container (Todos|Delete Button) */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .projects-screen > div > div:nth-child(2) > div:nth-child(1){ /* Todos Length Tag */
+        font-size: 14px; 
+        /* font-weight: bold;  */
+    }
+    .projects-screen > div > div:nth-child(2) > img[src]{ /* Delete Button Image */
+        width: 40px;
+        height: 40px;
+    }
+
+    /* |Project Screen| */
+    .project-screen{  
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+
+        /* border: 1px solid orange;  */
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 14px;
+        font-weight: bold; 
+        color: white; 
+    }
+    .project-screen > div:nth-child(1){ /* Project Name */
+        font-size: 15px; 
+        word-wrap: break-word; 
+        letter-spacing: 2px;
+    }
+    .project-screen > div:nth-child(2){ /* project prompt Container (Arrow Button|Todo List Logo|Add Todo Button) */
+        display: flex;
+        align-items: center;
+        justify-content: space-around;  
+        gap: 10px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        width: 130px; 
+    }
+    .project-screen > div:nth-child(2) > img[src]{ /* Arrow Button & Add Todo Button */
+        width: 40px;
+        height: 40px;
+    }
+    .project-todos-section{ /* Project Todos Container (Todo Name|Todo Details|Edit Todo|Delete Todo) */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        /* border: 1px solid green; */
+    }
+    .project-todos-section > div{ /* Project Todo (Each todo) */
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        border: 1px solid #0f172aa9;
+        border-radius: 10px; 
+        padding: 5px; 
+        width: 130px; 
+    }
+    .project-todos-section > div > div:nth-child(1){ /* Project Todo Name */
+        word-wrap: break-word;
+    }
+    .project-todos-section > div > div:nth-child(2){ /* Project Todo Button Section */
+        display: flex;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
+    .project-todos-section > div > div:nth-child(2) > img[src]{ /* Porject Todo Buttons */
+        width: 40px;
+        height: 40px;
+    }
+
+    /* |New Note Button Screen| */
+    #note-input{
+        border-radius: 10px;
+        border: 1px solid #0f172aa9; 
+        background-color: #94a3b8; 
+        padding: 5px;
+        color: white;
+        width: 130px;
+        font-size: 14px;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    #note-input:focus{
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    /* |View Notes Screen| */
+    .notes-screen{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        padding: 3px;
+        overflow-y: scroll; 
+        height: 100%; 
+    }
+    .notes-screen > div{ /* Notes Container */
+        border: 1px solid #0f172aa9; 
+        border-radius: 10px; 
+        text-align: left;
+        padding: 5px;
+        color: white;
+        font-family: comfortaa, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 12px; 
+        width: 124px; 
+    }
+    .notes-screen > div > div:nth-child(1){ /* Delete Notes Container */
+        display: flex;
+        justify-content: end;
+    }
+    .notes-screen > div > div:nth-child(1) > img[src]{ /* Delete Notes Button Image */
+        width: 40px;
+        height: 40px;
     }
 }

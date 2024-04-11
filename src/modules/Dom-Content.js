@@ -1,9 +1,10 @@
 import { InputTodo } from "./TodoContent";
 import { InputProject } from "./ProjectContent";
 import { InputNotes } from "./NoteContent";
-
+import { DisplayProjects } from "./DisplayProjects";
+import { DisplayNotes } from "./DisplayNotes";
 import { ViewTodos } from "./DisplayTodos"; 
-import { ProjectClicked } from "./ProjectContent";
+
 
 // InitializeDomContent(): Initalizing all dom dontent for the application. 
 export function InitializeDomContent(){
@@ -14,13 +15,12 @@ export function InitializeDomContent(){
     ButtonSection();
 
     InputSection();
-
-    DisplayProjects();
 }
 
 // MainTitle(): The main title for the application.
 function MainTitle(){
     const mainTitle = document.createElement('h1');
+    mainTitle.classList.add('main-title'); 
     mainTitle.textContent = "The Todo List";
 
     const content = document.getElementById('content');
@@ -54,6 +54,8 @@ function ButtonSection(){
     ViewTodosButton();
     
     ViewNotesButton(); 
+
+    ViewProjectsButton();
 }
 
 // InputSection(): The main input section for the todo list.
@@ -117,33 +119,18 @@ function ViewNotesButton(){
 
     const viewNotesButton = document.createElement('button');
     viewNotesButton.textContent = 'View Notes';
+    viewNotesButton.addEventListener('click', DisplayNotes);
 
     buttonSection.appendChild(viewNotesButton);
 }
 
-// DisplayProjects(): Will display all the current projects.
-export function DisplayProjects(){
+// ViewProjectsButton(): Button will allow the user to view all the current projects.
+function ViewProjectsButton(){
     const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
-    
-    const displayProjects = document.createElement('div');
-    const title = document.createElement('h4');
-    title.textContent = "Projects";
-    displayProjects.appendChild(title); 
+    const viewProjectsButton = document.createElement('button');
+    viewProjectsButton.textContent = 'View Projects';
 
-    buttonSection.appendChild(displayProjects); 
+    buttonSection.appendChild(viewProjectsButton); 
 
-    const projects = JSON.parse(localStorage.getItem('projects'));
-
-    if (projects !== null)
-    {
-        projects.forEach((project) => {
-            const projectButton = document.createElement('button');
-            projectButton.textContent = `${project.projectName}`;
-    
-            displayProjects.appendChild(projectButton); 
-    
-            projectButton.addEventListener('click', ProjectClicked);
-        });
-    }
+    viewProjectsButton.addEventListener('click', DisplayProjects); 
 }
-

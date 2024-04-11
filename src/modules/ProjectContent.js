@@ -1,17 +1,13 @@
 import { StoreProjects } from "../utils/InitialStorage";
 import { StoreEditedTodoProjects } from "../utils/InitialStorage";
 import { DeleteStoredProject } from "../utils/InitialStorage";
-import { todoMatcher } from "../utils/TodoMatcher";
 import { projectMatcher } from "../utils/ProjectMatcher";
 import { DisableButtons, EnableButtons } from "../utils/ButtonActivation";
 import { compareAsc, format } from "date-fns";
 
-import plusButtonImage from '../images/plus.svg'; 
 import windowCloseImage from '../images/window-close.svg';
-import deleteForeverButton from '../images/delete-forever.svg';
 
-import { DisplayProjectTodos } from "./DisplayProjectTodos";
-
+import { ProjectPrompt } from "./DisplayProjects";
 
 // InputProject(): Allows the user to input project information. 
 export function InputProject(e){
@@ -47,6 +43,7 @@ function ProjectName(){
     projectName.setAttribute('type', 'text');
     projectName.setAttribute('id', 'project-name');
     projectName.setAttribute('name', 'project-name');
+    projectName.setAttribute('maxLength', '20'); 
 
     projectFormSectionOne.appendChild(projectNameLabel);
     projectFormSectionOne.appendChild(projectName); 
@@ -76,60 +73,63 @@ function ProjectSubmitted(e){
     console.log(e); // Testing
     console.log(e.target); // Testing 
 
+    const projectArray = JSON.parse(localStorage.getItem('projects'));
     const projectForm = document.querySelector('.main-screen > div:nth-child(2) > form');
     const projectName = document.getElementById('project-name');
-    StoreProjects(projectName.value);
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container'); 
+    let projectNameExist = false;
 
+    // Test if the error container is inside the project form. 
+    if (projectForm.classList.contains('contains-error-container'))
+    {
+        const previousErrorContainer = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(3)'); 
+        projectForm.removeChild(previousErrorContainer); 
+        projectForm.classList.remove('error-contains-container'); 
+    }
+
+    projectArray.forEach((project) => {
+        if (project.projectName === projectName.value)
+        {
+            projectName.setCustomValidity('This project name already exist...');
+            projectName.reportValidity();
+            console.log('This project name already exist...'); // Testing
+            console.log('\n'); // Testing
+            projectNameExist = true; 
+        }
+    });
+
+    if (!projectNameExist)
+    {
+        if (projectName.value === "")
+        {
+            const projectNameError = document.createElement('div');
+            projectNameError.textContent = "Project name field is missing..."; 
+            errorContainer.appendChild(projectNameError); 
+            projectForm.appendChild(errorContainer); 
+            projectForm.classList.add('contains-error-container'); 
+            return;
+        }
+
+        StoreProjects(projectName.value);
+    }
+    
     projectForm.reset();
 }
 
-// ProjectClicked(): Brings up the project content when clicked in the display projects section.
-export function ProjectClicked(e){
-    console.log(e); // Testing
-    console.log(e.target); // Testing
-    console.log('\n'); // Testing
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)'); 
-
-    projectMatcher.matcher = e.target.textContent; 
-    
-    ClearInputSection();
-    RemovePreviousSelectedButton(); 
-
-    e.target.classList.add('current-button'); 
-
-    // Todo: Add project content from the project that the user has clicked on in here.
-    // Note: You may be able to put this into a different function.
-    // Note: 3-5-2024 ~ You will showcase all the todos from each project here. 
-    const projectSection = document.createElement('div');
-    projectSection.classList.add('project-section');
-    
-    inputSection.appendChild(projectSection); 
-
-    AddTodoToProject();
-    DeleteProject(); 
-
-    DisplayProjectTodos(); 
-}
-
-// DeleteProject(): Button will delete the current project that the user has clicked on.
-export function DeleteProject(){
-    const addTodoContainer = document.querySelector('.project-section > div:nth-child(1)');
-    const deleteProjectButton = new Image();
-    deleteProjectButton.src = deleteForeverButton;
-    addTodoContainer.appendChild(deleteProjectButton);
-
-    deleteProjectButton.addEventListener('click', DeleteProjectWindow); 
-}
-
 // DeleteProjectWindow(): Will bring the delete project to prompt the user about deleting the project. 
-function DeleteProjectWindow(){
+export function DeleteProjectWindow(e){
+    projectMatcher.matcher = e.target.parentNode.parentNode.childNodes[0].innerHTML;
+
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const deleteProjectWindow = document.createElement('div');
     deleteProjectWindow.classList.add('delete-project-window');
     
     content.appendChild(deleteProjectWindow);
 
+    mainTitle.setAttribute('style', 'filter: blur(10px);'); 
     mainScreen.setAttribute('style', 'filter: blur(10px);');
     mainScreen.classList.add('disable-clicker');
     DisableButtons(); 
@@ -160,12 +160,14 @@ function DeleteProjectWindow(){
 // CloseDeleteProjectWindow(): Will close the delete project window.
 function CloseDeleteProjectWindow(){
     const content = document.getElementById('content');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen'); 
     const deleteProjectWindow = document.querySelector('.delete-project-window'); 
     const closeButtonImage = document.querySelector('.delete-project-window > div:nth-child(1) > img[src]');
 
     content.removeChild(deleteProjectWindow);
 
+    mainTitle.removeAttribute('style'); 
     mainScreen.removeAttribute('style');
     mainScreen.classList.remove('disable-clicker');
     EnableButtons(); 
@@ -173,22 +175,11 @@ function CloseDeleteProjectWindow(){
     closeButtonImage.removeEventListener('click', CloseDeleteProjectWindow); 
 }
 
-// AddTodoToProject(): The add todo plus button will add todos to the project.  
-export function AddTodoToProject(){
-    const projectSection = document.querySelector('.project-section'); 
-    const addTodoContainer = document.createElement('div');
-    const addTodoButton = new Image();
-    addTodoButton.src = plusButtonImage;
-    addTodoContainer.appendChild(addTodoButton); 
-    projectSection.appendChild(addTodoContainer); 
-
-    addTodoButton.addEventListener('click', AddTodoWindow);
-}
-
 // AddTodo(): The add todo window will showcase all the form fields to add the todo content to the project. 
-function AddTodoWindow(e){
+export function AddTodoWindow(e){
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const addTodoWindow = document.createElement('div');
     addTodoWindow.classList.add('add-todo-window'); 
 
@@ -209,6 +200,7 @@ function AddTodoWindow(e){
     addTodoName.setAttribute('type', 'text');
     addTodoName.setAttribute('id', 'add-todo-name');
     addTodoName.setAttribute('name', 'add-todo-name'); 
+    addTodoName.setAttribute('maxLength', '20');  
     addTodoSectionOne.appendChild(addTodoNameLabel);
     addTodoSectionOne.appendChild(addTodoName); 
 
@@ -217,9 +209,12 @@ function AddTodoWindow(e){
     addTodoDescriptionLabel.textContent  = "Description";
     addTodoDescriptionLabel.setAttribute('for', 'add-todo-description');
     const addTodoDescription = document.createElement('textarea');
+    addTodoDescription.classList.add('disable-resize'); 
     addTodoDescription.setAttribute('type', 'text');
     addTodoDescription.setAttribute('id', 'add-todo-description'); 
     addTodoDescription.setAttribute('name', 'add-todo-description'); 
+    addTodoDescription.setAttribute('maxLength', '150'); 
+    addTodoDescription.setAttribute('rows', '10');  
     addTodoSectionTwo.appendChild(addTodoDescriptionLabel);
     addTodoSectionTwo.appendChild(addTodoDescription); 
 
@@ -249,7 +244,7 @@ function AddTodoWindow(e){
     const highPriority = document.createElement('button');
     highPriority.textContent = 'High';
     highPriority.setAttribute('type', 'button');
-    highPriority.addEventListener('click', AddHighPriority);
+    highPriority.addEventListener('click', AddHighPriority);console.log('Will display the notes here...'); // Testing 
     addTodoPriority.appendChild(lowPriority);
     addTodoPriority.appendChild(medPriority);
     addTodoPriority.appendChild(highPriority); 
@@ -270,8 +265,9 @@ function AddTodoWindow(e){
 
     closeButtonImage.addEventListener('click', CloseAddTodoWindow);
 
-    addTodoSubmit.addEventListener('click', SubmitAddTodo);
+    addTodoSubmit.addEventListener('click', SubmitTodoToProject);
     
+    mainTitle.setAttribute('style', 'filter: blur(10px);'); 
     mainScreen.setAttribute('style', 'filter: blur(10px);');
     mainScreen.classList.add('disable-clicker'); 
     DisableButtons(); 
@@ -317,24 +313,35 @@ function AddHighPriority(){
 }
 
 // SubmitAddTodo(): Will submit all the data to the project. 
-function SubmitAddTodo(e){
+function SubmitTodoToProject(e){
     e.preventDefault();
     
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container');  
     const addTodoName = document.getElementById('add-todo-name'); 
     const addTodoDescription = document.getElementById('add-todo-description');
     const addTodoDueDate = document.getElementById('add-todo-due-date'); 
+    const addTodoForm = document.querySelector('.add-todo-window > form'); 
     const lowPriority = document.querySelector('.add-todo-window > form > div:nth-child(4) > div > button:nth-child(1)');
     const medPriority = document.querySelector('.add-todo-window > form > div:nth-child(4) > div > button:nth-child(2)');
     const highPriority = document.querySelector('.add-todo-window > form > div:nth-child(4) > div > button:nth-child(3)');
     const content = document.getElementById('content');
-    const addTodoWindow = document.querySelector('.add-todo-window'); 
+    const addTodoWindow = document.querySelector('.add-todo-window');
+    const mainTitle = document.querySelector('.main-title');  
     const mainScreen = document.querySelector('.main-screen'); 
-    const projectSection = document.querySelector('.project-section'); 
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)'); 
     let priority = "";
 
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-    console.log(projectArray); //Testing 
+    console.log(projectArray); // Testing
 
+    // Test if the add todo form contains an error container child.
+    if (addTodoForm.classList.contains('contains-error-container'))
+    {
+        const previousErrorContainer = document.querySelector('.add-todo-window > form > div:nth-child(6)');
+        addTodoForm.removeChild(previousErrorContainer); 
+        addTodoForm.classList.remove('contains-error-container'); 
+    }
 
     if (lowPriority.classList.contains('priority-chosen'))
     {
@@ -351,8 +358,36 @@ function SubmitAddTodo(e){
 
     if (addTodoName.value === "" || addTodoDescription.value === "" || addTodoDueDate.value === "" || priority === "")
     {
-        console.log("Some of the fields are missing"); // Testing 
-        console.log("Please fill in all the fields..."); // Testing
+        if (addTodoName.value === "")
+        {
+            const addTodoNameError = document.createElement('div');
+            addTodoNameError.textContent = 'Name field is missing...';
+            errorContainer.appendChild(addTodoNameError); 
+        }
+
+        if (addTodoDescription.value === "")
+        {
+            const addTodoDescriptionError = document.createElement('div');
+            addTodoDescriptionError.textContent = 'Description field is missing...';
+            errorContainer.appendChild(addTodoDescriptionError);
+        }
+
+        if (addTodoDueDate.value === "")
+        {
+            const addTodoDueDateError = document.createElement('div'); 
+            addTodoDueDateError.textContent = 'Due date field is missing...';
+            errorContainer.appendChild(addTodoDueDateError); 
+        }
+
+        if (priority === "")
+        {
+            const priorityError = document.createElement('div');
+            priorityError.textContent = 'Priority field is missing...';
+            errorContainer.appendChild(priorityError);
+        }
+        
+        addTodoForm.appendChild(errorContainer);
+        addTodoForm.classList.add('contains-error-container'); 
         return; 
     }
 
@@ -391,28 +426,38 @@ function SubmitAddTodo(e){
         console.log('Current Storage: ', JSON.parse(localStorage.getItem('projects'))); // Testing 
         console.log('\n'); // Testing 
 
+        content.removeChild(addTodoWindow); 
+
+        mainTitle.removeAttribute('style'); 
         mainScreen.removeAttribute('style');
         mainScreen.classList.remove('disable-clicker'); 
         EnableButtons(); 
-        content.removeChild(addTodoWindow); 
 
-        projectSection.replaceChildren();
-        AddTodoToProject(); 
-        DeleteProject(); 
-        DisplayProjectTodos(); 
+        displayScreen.replaceChildren();
+
+        ProjectPrompt();
     }
-    // TODO: 3-05-2024 ~ Will need to create a popup note that tells the user if the date is behind, and when one of the
-    // fields is empty.  
+    else if (result === -1)
+    {
+        const projectTodoDueDateInvalid = document.createElement('div'); 
+        projectTodoDueDateInvalid.textContent = 'The due date is older than the current date...'; 
+        errorContainer.appendChild(projectTodoDueDateInvalid); 
+        errorContainer.classList.add('error-container'); 
+        addTodoForm.appendChild(errorContainer); 
+        addTodoForm.classList.add('contains-error-container'); 
+    } 
 }
 
 // RemoveAddTodo(): Will close the add todo window.
 function CloseAddTodoWindow(){
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const addTodoWindow = document.querySelector('.add-todo-window');
     const closeButtonImage = document.querySelector('.add-todo-window > div:nth-child(1) > img[src]');
 
     content.removeChild(addTodoWindow);
+    mainTitle.removeAttribute('style');  
     mainScreen.removeAttribute('style');
     mainScreen.classList.remove('disable-clicker');
     EnableButtons(); 
@@ -423,6 +468,7 @@ function CloseAddTodoWindow(){
 // AddTodoDetails(): Details about the todo added to the project.
 export function ProjectTodoDetailsWindow(e){
     const content = document.getElementById('content');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen'); 
 
     const projectTodoDetailsWindow = document.createElement('div');
@@ -455,7 +501,7 @@ export function ProjectTodoDetailsWindow(e){
                 {
                     const projectTodoDescriptionSection = document.createElement('div');
                     const projectTodoDescriptionLabel = document.createElement('div');
-                    projectTodoDescriptionLabel.textContent = "Description";
+                    projectTodoDescriptionLabel.textContent = "Description:";
                     const projectTodoDescription = document.createElement('div');
                     projectTodoDescription.textContent = `${todoObject.description}`;
                     projectTodoDescriptionSection.appendChild(projectTodoDescriptionLabel);
@@ -463,7 +509,7 @@ export function ProjectTodoDetailsWindow(e){
                     
                     const projectTodoDueDateSection = document.createElement('div');
                     const projectTodoDueDateLabel = document.createElement('div');
-                    projectTodoDueDateLabel.textContent = 'Due Date'; 
+                    projectTodoDueDateLabel.textContent = 'Due Date:'; 
                     const projectTodoDueDate = document.createElement('div');
                     projectTodoDueDate.textContent = `${todoObject.dueDate}`;
                     projectTodoDueDateSection.appendChild(projectTodoDueDateLabel);
@@ -471,7 +517,7 @@ export function ProjectTodoDetailsWindow(e){
 
                     const projectTodoPrioritySection = document.createElement('div');
                     const projectTodoPriorityLabel = document.createElement('div');
-                    projectTodoPriorityLabel.textContent = "Priority";
+                    projectTodoPriorityLabel.textContent = "Priority:";
                     const projectTodoPriority = document.createElement('div');
                     projectTodoPriority.textContent = `${todoObject.priority}`;
                     projectTodoPrioritySection.appendChild(projectTodoPriorityLabel);
@@ -486,6 +532,7 @@ export function ProjectTodoDetailsWindow(e){
     });
     projectTodoDetailsWindow.appendChild(projectTodoDetails); 
 
+    mainTitle.setAttribute('style', 'filter: blur(10px);');
     mainScreen.setAttribute('style', 'filter:blur(10px);');
     mainScreen.classList.add('disable-clicker');
     DisableButtons(); 
@@ -494,11 +541,13 @@ export function ProjectTodoDetailsWindow(e){
 // CloseProjectTodoDetailsWindow(): Will close the project todo details window.
 function CloseProjectTodoDetailsWindow(){
     const content = document.getElementById('content');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen');
     const projectTodoDetailsWindow = document.querySelector('.project-todo-details-window'); 
     
     content.removeChild(projectTodoDetailsWindow);
 
+    mainTitle.removeAttribute('style');  
     mainScreen.removeAttribute('style');
     mainScreen.classList.remove('disable-clicker');
     EnableButtons();
@@ -511,6 +560,7 @@ export function ProjectTodoEditWindow(e){
     console.log(e.target.parentNode.parentNode.childNodes[0].textContent); // Testing 
 
     const content = document.getElementById('content');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen'); 
 
     const projectTodoEditWindow = document.createElement('div');
@@ -552,6 +602,7 @@ export function ProjectTodoEditWindow(e){
                     projectTodoEditName.setAttribute('type', 'text');
                     projectTodoEditName.setAttribute('id', 'edit-project-name-todo');
                     projectTodoEditName.setAttribute('name', 'edit-project-name-todo'); 
+                    projectTodoEditName.setAttribute('maxLength', '20'); 
                     projectTodoEditName.setAttribute('value', `${todo.name}`); 
                     projectTodoEditSectionOne.appendChild(projectTodoEditNameLabel);
                     projectTodoEditSectionOne.appendChild(projectTodoEditName); 
@@ -563,8 +614,11 @@ export function ProjectTodoEditWindow(e){
                     projectTodoEditDescriptionLabel.setAttribute('for', 'edit-project-todo-description');
                     projectTodoEditDescriptionLabel.textContent = "Edit Description"; 
                     const projectTodoEditDescription = document.createElement('textarea');
+                    projectTodoEditDescription.classList.add('disable-resize'); 
                     projectTodoEditDescription.setAttribute('id', 'edit-project-todo-description');
                     projectTodoEditDescription.setAttribute('name', 'edit-project-todo-description');
+                    projectTodoEditDescription.setAttribute('maxLength', '150'); 
+                    projectTodoEditDescription.setAttribute('rows', '10'); 
                     projectTodoEditDescription.innerHTML = `${todo.description}`;
                     projectTodoEditSectionTwo.appendChild(projectTodoEditDescriptionLabel);
                     projectTodoEditSectionTwo.appendChild(projectTodoEditDescription);
@@ -647,6 +701,7 @@ export function ProjectTodoEditWindow(e){
     });
     projectTodoEditWindow.appendChild(projectTodoEdit); 
 
+    mainTitle.setAttribute('style', 'filter: blur(10px);'); 
     mainScreen.setAttribute('style', 'filter: blur(10px);'); 
     mainScreen.classList.add('disable-clicker');
     DisableButtons(); 
@@ -671,16 +726,29 @@ function EditProjectTodoPriority(e){
 function SubmitEditedProjectTodo(e){
     e.preventDefault();
 
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container'); 
     const mainScreen = document.querySelector('.main-screen'); 
+    const mainTitle = document.querySelector('.main-title'); 
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)'); 
     const content = document.getElementById('content'); 
-    const projectSection = document.querySelector('.project-section'); 
     const projectTodoEditWindow = document.querySelector('.project-todo-edit-window'); 
+    const projectTodoForm = document.querySelector('.project-todo-edit-window > form'); 
     const editedProjectTodoName = document.querySelector('.project-todo-edit-window > form > div:nth-child(1) > input');
     const editedProjectTodoDescription = document.querySelector('.project-todo-edit-window > form > div:nth-child(2) > textarea');
     const editedProjectTodoDueDate = document.querySelector('.project-todo-edit-window > form > div:nth-child(3) > input');
     const editedProjectTodoPriority = document.querySelectorAll('.project-todo-edit-window > form > div:nth-child(4) > div > button');
     let priority = ""; 
 
+    // Test if the project todo form contains a previous error container. 
+    if (projectTodoForm.classList.contains('contains-error-container'))
+    {
+        const previousErrorContainer = document.querySelector('.project-todo-edit-window > form > div:nth-child(6)');
+        projectTodoForm.removeChild(previousErrorContainer); 
+        projectTodoForm.classList.remove('contains-error-container'); 
+    }
+
+    // Original priority placement: 
     editedProjectTodoPriority.forEach((button) => {
         if (button.classList.contains('priority-chosen'))
         {
@@ -690,7 +758,29 @@ function SubmitEditedProjectTodo(e){
 
     if (editedProjectTodoName.value === "" || editedProjectTodoDescription.value === "" || editedProjectTodoDueDate.value === "")
     {
-        console.log('Please fill in the missing fields'); // Testing
+        if (editedProjectTodoName.value === "")
+        {
+            const editedProjectTodoNameError = document.createElement('div');
+            editedProjectTodoNameError.textContent = 'Name field is missing...';
+            errorContainer.appendChild(editedProjectTodoNameError); 
+        }
+
+        if (editedProjectTodoDescription.value === "")
+        {
+            const editedProjectTodoDescriptionError = document.createElement('div');
+            editedProjectTodoDescriptionError.textContent = 'Description field is missing...';
+            errorContainer.appendChild(editedProjectTodoDescriptionError);
+        }
+
+        if (editedProjectTodoDueDate.value === "")
+        {
+            const editedProjectTodoDueDateError = document.createElement('div');
+            editedProjectTodoDueDateError.textContent = 'Due date field is missing...';
+            errorContainer.appendChild(editedProjectTodoDueDateError); 
+        }
+
+        projectTodoForm.appendChild(errorContainer); 
+        projectTodoForm.classList.add('contains-error-container'); 
         return;
     }
 
@@ -722,17 +812,24 @@ function SubmitEditedProjectTodo(e){
 
         content.removeChild(projectTodoEditWindow); 
 
-        projectSection.replaceChildren(); 
+        displayScreen.replaceChildren(); 
 
+        mainTitle.removeAttribute('style'); 
         mainScreen.removeAttribute('style');
         mainScreen.classList.remove('disable-clicker');
         EnableButtons();
 
-        AddTodoToProject(); 
-        DisplayProjectTodos(); 
+        ProjectPrompt();
     }
-    // Note: Implement an else statement if the result of the due date is older than the current date. 
-
+    else if (result === -1)
+    {
+        const editedProjectDueDateInvalid = document.createElement('div'); 
+        editedProjectDueDateInvalid.textContent = 'Due date is older than the current date...'; 
+        errorContainer.appendChild(editedProjectDueDateInvalid); 
+        projectTodoForm.appendChild(errorContainer);
+        projectTodoForm.classList.add('contains-error-container'); 
+        return; 
+    }
 
 }
 
@@ -740,10 +837,12 @@ function SubmitEditedProjectTodo(e){
 function CloseProjectTodoEditWindow(){
     const content = document.getElementById('content');
     const projectTodoEditWindow = document.querySelector('.project-todo-edit-window');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen');
 
     content.removeChild(projectTodoEditWindow);
 
+    mainTitle.removeAttribute('style');
     mainScreen.removeAttribute('style');
     mainScreen.classList.remove('disable-clicker');
     EnableButtons(); 

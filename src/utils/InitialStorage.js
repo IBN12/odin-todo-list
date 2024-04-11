@@ -1,7 +1,6 @@
-import { DisplayProjects } from "../modules/Dom-Content";
-import { DisplayProjectTodos } from "../modules/DisplayProjectTodos";
-import { AddTodoToProject } from "../modules/ProjectContent";
-import { DeleteProject } from "../modules/ProjectContent";
+import { ProjectPrompt } from "../modules/DisplayProjects";
+import { ProjectsBeingDisplayed } from "../modules/DisplayProjects";
+import { NotesBeingDisplayed } from "../modules/DisplayNotes";
 
 import { projectMatcher } from "./ProjectMatcher";
 import { EnableButtons } from "./ButtonActivation";
@@ -12,6 +11,7 @@ export function InitialStorage(){
     {
         localStorage.setItem('todos', JSON.stringify([]));
         localStorage.setItem('projects', JSON.stringify([])); 
+        localStorage.setItem('notes', JSON.stringify([]));
     } 
 }
 
@@ -82,10 +82,6 @@ export function StoreProjects(project){
 
     localStorage.removeItem('projects');
     localStorage.setItem('projects', JSON.stringify(projectArray)); 
-
-    buttonSection.removeChild(displayProjects); 
-
-    DisplayProjects(); 
 }
 
 // StoreTodoProjects(): Will store the edited todo 
@@ -137,20 +133,23 @@ export function DeleteStoredTodoProject(e){
 
     localStorage.setItem('projects', JSON.stringify(projectArray));
     
-    const projectSection = document.querySelector('.project-section');
-    projectSection.replaceChildren(); 
-    AddTodoToProject();
-    DisplayProjectTodos();
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)');
+    displayScreen.replaceChildren(); 
+
+    ProjectPrompt(); 
 }
 
 // DeleteStoredProject(): Delete the current stored project that the user clicked on. 
 export function DeleteStoredProject(){
-    const displayAllProjects = document.querySelectorAll('.main-screen > div:nth-child(1) > div > button');
-    const projectSection = document.querySelector('.project-section');
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)'); 
     const content = document.getElementById('content'); 
     const deleteProjectWindow = document.querySelector('.delete-project-window');
+    const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen');
     const projectArray = JSON.parse(localStorage.getItem('projects'));
+
+    console.log(projectMatcher.matcher); // Testing 
+
 
     projectArray.forEach((project, index) => {
         if (project.projectName === projectMatcher.matcher)
@@ -159,44 +158,80 @@ export function DeleteStoredProject(){
         }
     });
 
-    displayAllProjects.forEach((button) => {
-        if (button.textContent === projectMatcher.matcher)
-        {
-            const displayProjectContainer = document.querySelector('.main-screen > div:nth-child(1) > div');
-            displayProjectContainer.removeChild(button); 
-        }
-    }); 
-
     localStorage.removeItem('projects');
     localStorage.setItem('projects', JSON.stringify(projectArray));
 
-    if (projectArray.length !== 0)
+    content.removeChild(deleteProjectWindow); 
+
+    displayScreen.replaceChildren(); 
+
+    mainTitle.removeAttribute('style'); 
+    mainScreen.removeAttribute('style');
+    mainScreen.classList.remove('disable-clicker');
+    EnableButtons();
+
+    ProjectsBeingDisplayed(); 
+}
+
+// SubmitNote(): Will submit the note to the local storage. 
+export function SubmitNoteToLocalStorage(e){
+    e.preventDefault(); 
+    const noteInput = document.getElementById('note-input');
+    const noteForm = document.querySelector('.main-screen > div:nth-child(2) > form'); 
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container'); 
+
+    if (noteForm.classList.contains('contains-error-container'))
     {
-        const firstProject = projectArray[0];
-        projectMatcher.matcher = firstProject.projectName;
+        const previousErrorContainer = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(3)');
+        noteForm.removeChild(previousErrorContainer); 
+        noteForm.classList.remove('contains-error-container'); 
+    }
 
-        displayAllProjects.forEach((button) => {
-            if (button.textContent === projectMatcher.matcher)
-            {
-                button.classList.add('current-button'); 
-            }
-            else
-            {
-                button.classList.remove('current-button');
-            }
-        });
+    if (noteInput.value === "")
+    {
+        const noteInputError = document.createElement('div'); 
+        noteInputError.textContent = 'Note field is missing....';
+        errorContainer.appendChild(noteInputError);
+        noteForm.appendChild(errorContainer); 
+        noteForm.classList.add('contains-error-container'); 
+        return; 
+    }
 
-        content.removeChild(deleteProjectWindow); 
+    console.log(noteInput.value); // Testing 
 
-        projectSection.replaceChildren(); 
+    const noteObj = {
+        note: noteInput.value,
+    }
 
-        mainScreen.removeAttribute('style');
-        mainScreen.classList.remove('disable-clicker');
-        EnableButtons();
 
-        AddTodoToProject();
-        DeleteProject();
-        DisplayProjectTodos(); 
-    }  
-    // Note: Implement an else statement if the 'projectArray' is empty. 
+    const noteArray = JSON.parse(localStorage.getItem('notes'));
+    noteArray.push(noteObj);
+
+    localStorage.removeItem('notes');
+    localStorage.setItem('notes', JSON.stringify(noteArray));
+
+    noteForm.reset(); 
+    
+    console.log(JSON.parse(localStorage.getItem('notes'))); // Testing 
+}
+
+// DeleteNoteFromLocalStorage(): Will delete the note from the local storage. 
+export function DeleteNoteFromLocalStorage(e){
+    const currentNote = e.target.parentNode.nextSibling.textContent; 
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)'); 
+    const noteArray = JSON.parse(localStorage.getItem('notes'));
+    
+    noteArray.forEach((note, index) => {
+        if (note.note === currentNote)
+        {
+            noteArray.splice(index, 1); 
+        }
+    });
+
+    localStorage.removeItem('notes');
+    localStorage.setItem('notes', JSON.stringify(noteArray));
+
+    displayScreen.replaceChildren(); 
+    NotesBeingDisplayed(); 
 }

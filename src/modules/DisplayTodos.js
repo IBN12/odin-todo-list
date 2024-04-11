@@ -1,8 +1,11 @@
-import windowCloseImg from '../images/window-close.svg';
-
 import { EditTodo, DeleteTodo } from './TodoContent';
 
 import { DisableButtons, EnableButtons } from '../utils/ButtonActivation';
+
+import windowCloseImg from '../images/window-close.svg';
+import descriptionTodoImage from '../images/note-outline.svg'; 
+import editDescriptionTodoImage from '../images/note-edit-outline.svg'; 
+import deleteTodoImage from '../images/delete-outline.svg';
 
 // ViewTodos(): Will display all the todos in the application.
 export function ViewTodos(e){
@@ -17,13 +20,13 @@ export function ViewTodos(e){
 }
 
 // Todos(): All the todos in the application. (Note: Called again after editing the todo.)
-function Todos(){
-    const inputSection = document.querySelector('.main-screen > div:nth-child(2)');
+export function Todos(){
+    const displayScreen = document.querySelector('.main-screen > div:nth-child(2)');
 
     const todoSection = document.createElement('div');
-    todoSection.classList.add('todo-section'); 
+    todoSection.classList.add('todo-screen'); 
     
-    inputSection.appendChild(todoSection); 
+    displayScreen.appendChild(todoSection); 
 
     const todos = JSON.parse(localStorage.getItem('todos')); 
     console.log('Todos on display: ', todos); // Testing
@@ -36,31 +39,35 @@ function Todos(){
         const todoName = document.createElement('div');
         todoName.textContent = `${todo.name}`;
 
-        const todoDescription = document.createElement('button');
-        todoDescription.textContent = 'Details';
-        todoDescription.addEventListener('click', TodoDescription); 
+        const todoMisc = document.createElement('div');
 
-        const editTodo = document.createElement('button');
-        editTodo.textContent = 'Edit';
+        const todoDescription = new Image();
+        todoDescription.src = descriptionTodoImage;
+        todoDescription.addEventListener('click', ViewTodoDescription); 
+
+        const editTodo = new Image();
+        editTodo.src = editDescriptionTodoImage;
         editTodo.addEventListener('click', EditTodo);
 
-        const deleteTodo = document.createElement('button');
-        deleteTodo.textContent = `Del`;
+        const deleteTodo = new Image();
+        deleteTodo.src = deleteTodoImage;
         deleteTodo.addEventListener('click', DeleteTodo);
 
+        todoMisc.appendChild(todoDescription);
+        todoMisc.appendChild(editTodo);
+        todoMisc.appendChild(deleteTodo);
         todoRow.appendChild(todoName);
-        todoRow.appendChild(todoDescription);
-        todoRow.appendChild(editTodo); 
-        todoRow.appendChild(deleteTodo);  
+        todoRow.appendChild(todoMisc);  
 
         todoSection.appendChild(todoRow); 
     });
 }
 
 // TodoDescription(): Will display the details about the todo.
-function TodoDescription(e){
+function ViewTodoDescription(e){
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen'); 
+    const mainTitle = document.querySelector('.main-title'); 
 
     const todoDescriptionWindow = document.createElement('div');
     todoDescriptionWindow.classList.add('todo-description-window');
@@ -77,7 +84,7 @@ function TodoDescription(e){
 
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.forEach((todo) => {
-        if (todo.name === e.target.parentNode.children[0].textContent)
+        if (todo.name === e.target.parentNode.parentNode.children[0].textContent)
         {
             const detailsSectionOne = document.createElement('div');
             const descriptionTitle = document.createElement('div');
@@ -109,29 +116,32 @@ function TodoDescription(e){
         }
     });
 
+    mainTitle.setAttribute('style', 'filter: blur(10px);');
     mainScreen.setAttribute('style', 'filter: blur(10px);'); // Blur the background 
     mainScreen.classList.add('disable-clicker'); 
     DisableButtons();
 
     content.appendChild(todoDescriptionWindow);
 
-    closeButtonImage.addEventListener('click', RemoveTodoDescription);
+    closeButtonImage.addEventListener('click', CloseTodoDescriptionWindow);
 }
 
-// RemoveTodoDescription(): Will remove the todo description window
-function RemoveTodoDescription(){
+// CloseTodoDescriptionWindow(): Will remove the todo description window
+function CloseTodoDescriptionWindow(){
     const content = document.getElementById('content');
     const mainScreen = document.querySelector('.main-screen');
+    const mainTitle = document.querySelector('.main-title'); 
     const todoDescriptionWindow = document.querySelector('.todo-description-window');
     const closeButtonImage = document.querySelector('.todo-description-window > div:nth-child(1) > img[src]');
     
     content.removeChild(todoDescriptionWindow); 
 
+    mainTitle.removeAttribute('style');  
     mainScreen.removeAttribute('style'); // Remove blur background
     mainScreen.classList.remove('disable-clicker'); 
     EnableButtons(); 
 
-    closeButtonImage.removeEventListener('click', RemoveTodoDescription);
+    closeButtonImage.removeEventListener('click', CloseTodoDescriptionWindow);
 }
 
 // ClearInputSection(): Clears the input section.
