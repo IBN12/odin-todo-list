@@ -23,7 +23,7 @@ The user will be able to create new todo's, notes, and projects. Each property w
 can view the information they've entered. The information for todo's and project todo's can be viewed, edited, and deleted. Notes
 can also be viewed and deleted. The local storage will save all the todo's, projects, and notes when the browser is closed. 
 
-<div stlye="text-align: center;">
+<div style="text-align: center;">
 <img src='./src/images/odin-todo-list-1.PNG' />
 <img src='./src/images/odin-todo-list-2.PNG' />
 </div>
