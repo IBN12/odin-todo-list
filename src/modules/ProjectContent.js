@@ -240,7 +240,7 @@ export function AddTodoWindow(e){
     const highPriority = document.createElement('button');
     highPriority.textContent = 'High';
     highPriority.setAttribute('type', 'button');
-    highPriority.addEventListener('click', AddHighPriority);console.log('Will display the notes here...'); // Testing 
+    highPriority.addEventListener('click', AddHighPriority);
     addTodoPriority.appendChild(lowPriority);
     addTodoPriority.appendChild(medPriority);
     addTodoPriority.appendChild(highPriority); 
