@@ -21,6 +21,14 @@ export function NotesBeingDisplayed(){
 
     const notesArray = JSON.parse(localStorage.getItem('notes')); 
 
+    if (notesArray.length === 0)
+    {
+        const notesMssg = document.createElement('div'); 
+        notesMssg.classList.add('notes-mssg'); 
+        notesMssg.textContent = "Add a new note by clicking on the New Note button.";
+        notesScreen.appendChild(notesMssg);
+    }
+
     notesArray.forEach((noteObj) => {
         const noteContainer = document.createElement('div');
 

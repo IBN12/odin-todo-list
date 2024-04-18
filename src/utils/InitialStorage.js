@@ -17,12 +17,6 @@ export function InitialStorage(){
 
 // StoreTodos(): Will store todos into the local storage. 
 export function StoreTodos(todoName, todoDescription, todoDueDate, todoPriority){
-    console.log('Todo Name: ', todoName); // Testing
-    console.log('Todo Description: ', todoDescription); // Testing
-    console.log('Todo Due Date: ', todoDueDate); // Testing
-    console.log('Todo Priority: ', todoPriority); // Testing
-    console.log('\n'); // Testing 
-
     const todoObj = {
         name: todoName,
         description: todoDescription,
@@ -37,14 +31,6 @@ export function StoreTodos(todoName, todoDescription, todoDueDate, todoPriority)
 
 // StoreEditedTodos(): Will store the edited todo content into the local storage.
 export function StoreEditedTodos(todoName, todoDescription, todoDueDate, todoPriority, todoArray, indexToReplace){
-    console.log('Edited Todo: ', todoName); // Testing
-    console.log('Edited Todo Description: ', todoDescription); // Testing 
-    console.log('Edited Todo Due Date: ', todoDueDate); // Testing
-    console.log('Edited Todo Priority: ', todoPriority); 
-    console.log('Todo Array: ', todoArray); // Testing 
-    console.log('Index To Replace: ', indexToReplace); // Testing
-    console.log('\n'); // Testing 
-
     const todoObj = {
         name: todoName,
         description: todoDescription,
@@ -60,17 +46,12 @@ export function StoreEditedTodos(todoName, todoDescription, todoDueDate, todoPri
 
 // DeleteStoredTodos(): Will Delete the stored todos in the local storage.
 export function DeleteStoredTodos(todoArray){
-    console.log('Todo array after deletion',todoArray); // Testing 
-    console.log('\n'); // Testing 
-
     localStorage.removeItem('todos');
     localStorage.setItem('todos', JSON.stringify(todoArray)); 
 }
 
 // StoreProjects(): Will store the project into the local storage as an array. 
 export function StoreProjects(project){
-    const buttonSection = document.querySelector('.main-screen > div:nth-child(1)');
-    const displayProjects = document.querySelector('.main-screen > div:nth-child(1) > div');
     const projectArray = JSON.parse(localStorage.getItem('projects'));
     
     const projectObj = {
@@ -87,8 +68,6 @@ export function StoreProjects(project){
 // StoreTodoProjects(): Will store the edited todo 
 export function StoreEditedTodoProjects(todoName, todoDescription, todoDueDate, todoPriority){
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-
-    console.log('Project Array: ', projectArray); // Testing
     projectArray.forEach((project) => {
         if (project.projectName === projectMatcher.matcher)
         {
@@ -107,13 +86,9 @@ export function StoreEditedTodoProjects(todoName, todoDescription, todoDueDate, 
 
 // DeleteStoredTodoProject(): Will delete the stored todo in the proeject section. 
 export function DeleteStoredTodoProject(e){
-    console.log(e.target.parentNode.parentNode.childNodes[0].textContent); // Testing
     const deleteName = e.target.parentNode.parentNode.childNodes[0].textContent;
-    console.log(e); // Testing 
-    console.log('\n'); // Testing
 
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-
     projectArray.forEach((project) => {
         if (project.projectName === projectMatcher.matcher)
         {
@@ -147,9 +122,6 @@ export function DeleteStoredProject(){
     const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen');
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-
-    console.log(projectMatcher.matcher); // Testing 
-
 
     projectArray.forEach((project, index) => {
         if (project.projectName === projectMatcher.matcher)
@@ -198,8 +170,6 @@ export function SubmitNoteToLocalStorage(e){
         return; 
     }
 
-    console.log(noteInput.value); // Testing 
-
     const noteObj = {
         note: noteInput.value,
     }
@@ -212,8 +182,6 @@ export function SubmitNoteToLocalStorage(e){
     localStorage.setItem('notes', JSON.stringify(noteArray));
 
     noteForm.reset(); 
-    
-    console.log(JSON.parse(localStorage.getItem('notes'))); // Testing 
 }
 
 // DeleteNoteFromLocalStorage(): Will delete the note from the local storage. 

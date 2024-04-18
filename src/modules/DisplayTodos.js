@@ -29,8 +29,14 @@ export function Todos(){
     displayScreen.appendChild(todoSection); 
 
     const todos = JSON.parse(localStorage.getItem('todos')); 
-    console.log('Todos on display: ', todos); // Testing
-    console.log('\n'); // Testing
+
+    if (todos.length === 0)
+    {
+        const todoMssg = document.createElement('div');
+        todoMssg.classList.add('todo-mssg'); 
+        todoMssg.textContent = "Add a new todo by clicking on the New Todo button.";
+        todoSection.appendChild(todoMssg); 
+    }
 
     todos.forEach((todo, index) => {
         const todoRow = document.createElement('div');
@@ -117,7 +123,7 @@ function ViewTodoDescription(e){
     });
 
     mainTitle.setAttribute('style', 'filter: blur(10px);');
-    mainScreen.setAttribute('style', 'filter: blur(10px);'); // Blur the background 
+    mainScreen.setAttribute('style', 'filter: blur(10px);');
     mainScreen.classList.add('disable-clicker'); 
     DisableButtons();
 

@@ -14,7 +14,7 @@ export function InitializeDomContent(){
 
     ButtonSection();
 
-    InputSection();
+    DisplayScreen();
 }
 
 // MainTitle(): The main title for the application.
@@ -59,13 +59,19 @@ function ButtonSection(){
 }
 
 // InputSection(): The main input section for the todo list.
-function InputSection(){
-    const inputSection = document.createElement('div');
-    inputSection.textContent = "Create New Todo's";
+function DisplayScreen(){
+    const displayScreen = document.createElement('div');
+
+    const displayMessage = document.createElement('div');
+    displayMessage.classList.add('display-mssg'); 
+    displayMessage.textContent = `Welcome to The Todo List. This application will allow you
+    to create todo's, projects, and notes for your daily tasks. Please enjoy.`
+
+    displayScreen.appendChild(displayMessage); 
 
     const mainScreen = document.querySelector('.main-screen');
 
-    mainScreen.appendChild(inputSection);
+    mainScreen.appendChild(displayScreen);
 }
 
 // TodoButton(): The todo list button.

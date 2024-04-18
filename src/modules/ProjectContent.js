@@ -70,8 +70,6 @@ function ProjectSubmit(){
 // ProjectSubmitted(): Submitting the project into the local storage.
 function ProjectSubmitted(e){
     e.preventDefault();
-    console.log(e); // Testing
-    console.log(e.target); // Testing 
 
     const projectArray = JSON.parse(localStorage.getItem('projects'));
     const projectForm = document.querySelector('.main-screen > div:nth-child(2) > form');
@@ -93,8 +91,6 @@ function ProjectSubmitted(e){
         {
             projectName.setCustomValidity('This project name already exist...');
             projectName.reportValidity();
-            console.log('This project name already exist...'); // Testing
-            console.log('\n'); // Testing
             projectNameExist = true; 
         }
     });
@@ -333,7 +329,6 @@ function SubmitTodoToProject(e){
     let priority = "";
 
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-    console.log(projectArray); // Testing
 
     // Test if the add todo form contains an error container child.
     if (addTodoForm.classList.contains('contains-error-container'))
@@ -392,23 +387,11 @@ function SubmitTodoToProject(e){
     }
 
     let dueDate = new Date(addTodoDueDate.value);
-    console.log('Full Date: ', dueDate); // Testing 
-    console.log("User Year: ", dueDate.getFullYear()); // Testing
-    console.log("User Month: ", dueDate.getMonth()); // Testing
-    console.log("User Date: ", dueDate.getDate() + 1); // Testing
-    console.log('\n'); // Testing
 
     let currentDate = new Date();
-    console.log('Current Full Date: ', currentDate); // Testing
-    console.log("Current Year: ", currentDate.getFullYear()); // Testing
-    console.log("Current Month: ", currentDate.getMonth()); // Testing
-    console.log("Current Date: ", currentDate.getDate()); // Testing 
-    console.log('\n'); // Testing
 
     const result = compareAsc(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1),
                               new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-    console.log("Result: ", result); // Testing 
-    console.log('\n'); // Testing 
 
     if (result === 1 || result === 0)
     {
@@ -423,8 +406,6 @@ function SubmitTodoToProject(e){
 
         localStorage.removeItem('projects'); 
         localStorage.setItem('projects', JSON.stringify(projectArray));
-        console.log('Current Storage: ', JSON.parse(localStorage.getItem('projects'))); // Testing 
-        console.log('\n'); // Testing 
 
         content.removeChild(addTodoWindow); 
 
@@ -487,7 +468,6 @@ export function ProjectTodoDetailsWindow(e){
     // Details Section
     const projectTodoDetails = document.createElement('div'); 
     const projects = JSON.parse(localStorage.getItem('projects'));
-    console.log(projects); // Testing
     projects.forEach((project) => {
         if (project.projectName === projectMatcher.matcher)
         {
@@ -555,10 +535,6 @@ function CloseProjectTodoDetailsWindow(){
 
 // ProjectTodoEditWindow(): User can edit the projects todo content.
 export function ProjectTodoEditWindow(e){
-    console.log(e); // Testing
-    console.log(e.target); // Testing
-    console.log(e.target.parentNode.parentNode.childNodes[0].textContent); // Testing 
-
     const content = document.getElementById('content');
     const mainTitle = document.querySelector('.main-title'); 
     const mainScreen = document.querySelector('.main-screen'); 
@@ -786,23 +762,11 @@ function SubmitEditedProjectTodo(e){
 
     // Todo: Work with the DueDate first. 
     const dueDate = new Date(editedProjectTodoDueDate.value);
-    console.log('Full Edited Date: ', dueDate); // Testing
-    console.log('Edited Year: ', dueDate.getFullYear()); // Testing
-    console.log('Edited Month: ', dueDate.getMonth()); // Testing
-    console.log('Edited Date: ', dueDate.getDate() + 1); // Testing
-    console.log('\n'); // Testing 
 
     const currentDate = new Date();
-    console.log('Full Current Date: ', currentDate); // Testing
-    console.log('Current Year: ', currentDate.getFullYear()); // Testing
-    console.log('Current Month: ', currentDate.getMonth()); // Testing
-    console.log('Current Date: ', currentDate.getDate()); // Testing
-    console.log('\n'); // Testing 
 
     const result = compareAsc(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1),
                               new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-    console.log('Result: ', result); // Testing 
-    console.log('\n'); // Testing
 
     if (result === 1 || result === 0)
     {

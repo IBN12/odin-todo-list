@@ -190,32 +190,18 @@ function SubmitData(e){
     if (todoForm.classList.contains('contains-error-container'))
     {
         const previousErrorContainer = document.querySelector('.main-screen > div:nth-child(2) > form > div:nth-child(6)'); 
-        console.log(previousErrorContainer); // Testing 
         todoForm.removeChild(previousErrorContainer); 
         todoForm.classList.remove('contains-error-container');  
     }
 
     const todoDueDate = document.getElementById('todo-due-date');
-    console.log(todoDueDate.value); // Testing
     const dueDate = new Date(todoDueDate.value); 
-    console.log(dueDate); // Testing 
-    console.log('Date: ', dueDate.getDate() + 1); // Testing
-    console.log('Year: ', dueDate.getFullYear()); // Testing
-    console.log('Month: ', dueDate.getMonth()); // Testing
-    console.log('\n'); // Testing
 
     const currentDate = new Date();
-    console.log('Current Date: ', currentDate); // Testing
-    console.log('Current Day Date: ', currentDate.getDate()); // Testing
-    console.log('Current Year: ', currentDate.getFullYear()); // Testing
-    console.log('Current Month: ', currentDate.getMonth()); // Testing 
-    console.log('\n');
 
     // Test if the due date is ahead of the current date. 
     const result = compareAsc(new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1), 
                    new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())); 
-    console.log('Comparisons Result: ', result); // Testing
-    console.log('\n'); // Testing
 
     if (lowPriority.classList.contains('priority-chosen'))
     {
@@ -289,9 +275,6 @@ function SubmitData(e){
 
 // EditTodo(): Allows the user to edit the todo.
 export function EditTodo(e){
-    console.log('Editing Todo...'); // Testing
-    console.log(e.target); // Testing
-    console.log(e); // Testing
     todoMatcher.matcher = e.target.parentNode.parentNode.children[0].textContent; 
 
     const content = document.getElementById('content');
@@ -462,8 +445,6 @@ function EditPriority(e){
 // SubmitEditedTodo(): Submit edited todo back into the local storage.
 function SubmitEditedTodo(e){
     e.preventDefault();
-    console.log(e); // Testing
-    console.log(e.target); // Testing
 
     const content = document.getElementById('content'); 
     const mainScreen = document.querySelector('.main-screen'); 
@@ -480,7 +461,6 @@ function SubmitEditedTodo(e){
     let indexToReplace = 0;
 
     const todos = JSON.parse(localStorage.getItem('todos'));
-    console.log(todos); // Testing
 
     if (editTodoForm.classList.contains('contains-error-container'))
     {
@@ -518,18 +498,8 @@ function SubmitEditedTodo(e){
     }
 
     const editedDueDate = new Date(editDueDateInput.value);
-    console.log(editedDueDate); // Testing 
-    console.log('Edited Full Year: ', editedDueDate.getFullYear()); // Testing
-    console.log('Edited Month: ', editedDueDate.getMonth()); // Testing
-    console.log('Edited Date: ', editedDueDate.getDate() + 1); // Testing
-    console.log('\n'); // Testing 
 
     const currentDate = new Date();
-    console.log(currentDate); // Testing
-    console.log('Current Full Year: ', currentDate.getFullYear()); // Testing
-    console.log('Current Month: ', currentDate.getMonth()); // Testing
-    console.log('Current Date: ', currentDate.getDate()); // Testing
-    console.log('\n'); // Testing 
 
     const result = compareAsc(new Date(editedDueDate.getFullYear(), editedDueDate.getMonth(), editedDueDate.getDate() + 1),
                               new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
@@ -537,7 +507,6 @@ function SubmitEditedTodo(e){
     if (result === 1 || result === 0)
     {
         const reformattedDueDate = format(new Date(editedDueDate.getFullYear(), editedDueDate.getMonth(), editedDueDate.getDate() + 1), 'MMM-dd-yyyy');
-        console.log('Reformatted Due Date: ', reformattedDueDate); // Testing
 
         todos.forEach((todo, index) => {
             if (todo.name === todoMatcher.matcher)
@@ -574,9 +543,6 @@ function SubmitEditedTodo(e){
 
 // DeleteTodo(): Will Delete the todo from the display and local storage.
 export function DeleteTodo(e){
-    console.log(e); // Testing
-    console.log(e.target); // Testing 
-
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.forEach((todo, index) => {
         if (todo.name === e.target.parentNode.parentNode.childNodes[0].innerHTML)

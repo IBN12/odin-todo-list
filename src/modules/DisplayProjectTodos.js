@@ -3,11 +3,10 @@ import detailsProjectTodoImage from '../images/note-outline.svg';
 import editProjectTodoImage from '../images/note-edit-outline.svg'; 
 
 import { projectMatcher } from '../utils/ProjectMatcher';
-import { todoMatcher } from '../utils/TodoMatcher';
+import { DeleteStoredTodoProject } from '../utils/InitialStorage';
 
 import { ProjectTodoDetailsWindow } from './ProjectContent';
 import { ProjectTodoEditWindow } from './ProjectContent';
-import { DeleteStoredTodoProject } from '../utils/InitialStorage';
 
 // DisplayProjectTodos(): Will display all the project todos from each project. 
 export function DisplayProjectTodos(){
@@ -22,6 +21,15 @@ export function DisplayProjectTodos(){
             projectTodosSection.classList.add('project-todos-section');
             
             const todoArray = project.todos;
+
+            if (todoArray.length === 0)
+            {
+                const projectTodoMssg = document.createElement('div'); 
+                projectTodoMssg.classList.add('project-todo-mssg'); 
+                projectTodoMssg.textContent = "Click the plus button to add a new Todo."; 
+                projectTodosSection.appendChild(projectTodoMssg); 
+                projectScreen.appendChild(projectTodosSection); 
+            }
 
             for (let i = 0; i < todoArray.length; i++)
             {

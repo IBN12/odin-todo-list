@@ -26,8 +26,14 @@ export function ProjectsBeingDisplayed(){
     projectsScreen.classList.add('projects-screen');
 
     const projectArray = JSON.parse(localStorage.getItem('projects'));
-    console.log('Projects to be displayed: ', projectArray); // Testing
-    console.log('\n'); // Testing 
+
+    if (projectArray.length === 0)
+    {
+        const projectsMssg = document.createElement('div'); 
+        projectsMssg.classList.add('projects-mssg'); 
+        projectsMssg.textContent = "Add a new project by clicking on the New Project button.";
+        projectsScreen.appendChild(projectsMssg); 
+    }
 
     projectArray.forEach((project) => {
         const todoArray = project.todos;
@@ -76,6 +82,7 @@ export function ProjectPrompt(){
     projectScreen.classList.add('project-screen'); 
 
     const projectArray = JSON.parse(localStorage.getItem('projects')); 
+
     projectArray.forEach((project) => {
         if (project.projectName === projectMatcher.matcher)
         {
